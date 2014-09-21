@@ -5,19 +5,27 @@ public class GameController : MonoBehaviour {
 	public GameObject[] girls;
 	public GameObject map;
 	MapRepresentation mapRepresentation;
-
+	public GameObject trackingBall;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
 
 		StartCoroutine ("startGame");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
-	}
+		Vector2 mouse = Input.mousePosition;
+		Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouse.x, mouse.y, 0));
+		RaycastHit hit;
+		int layerMaskOfMap = 1 << 8;
 
+		if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMaskOfMap)){
+			trackingBall.transform.position = hit.point;
+
+		}
+	}
+	
 	public ArrayList getGirlsFromTwoHands(Vector2 leftHand, Vector2 rightHand){
 		ArrayList girlsBeingWatched = new ArrayList ();
 		for (int i = 0; i < girls.Length; ++i) {

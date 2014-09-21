@@ -82,11 +82,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator startGame(){
+
 		for (int i = 0; i < girls.Length; ++i) {
 			Grid startPosition = mapRepresentation.getGrid((int)mapRepresentation.christmasTree.pointOfGrid.x-2+i, 
 			                                               (int)mapRepresentation.christmasTree.pointOfGrid.y);
 			girls[i].GetComponent<Person>().setStartPosition(startPosition);
 		}
+		//yield return new WaitForSeconds(5.0f);
 
 		Grid[] r5 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
 			mapRepresentation.wineSpirits, mapRepresentation.nailSalon, mapRepresentation.christmasTree};

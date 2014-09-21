@@ -6,6 +6,8 @@ public class InputController : MonoBehaviour {
 	public KinectPointController pointskel;
 	public GameObject window;
 	public GameObject main_cam;
+	public GameObject christmas_tree;
+
 
 	private Texture2D foggytex;
 	private Texture2D initialtex;
@@ -87,6 +89,12 @@ public class InputController : MonoBehaviour {
 		mouse_pos = new Vector2 (0, 0);
 		mouse_prev_pos = new Vector2 (0, 0);
 		all_tracked = false;
+
+		Vector3 startwipe = main_cam.camera.WorldToScreenPoint (christmas_tree.transform.position);
+		Vector2 sw_pos = new Vector2 ();
+		sw_pos.x = Screen.width - startwipe.x;
+		sw_pos.y = Screen.height - startwipe.y;
+		wipearea (sw_pos, 80, 3.0f, 3.0f);
 	}
 
 	bool check_tracked()
@@ -139,7 +147,7 @@ public class InputController : MonoBehaviour {
 						float diff = (mouse_pos - mouse_prev_pos).magnitude;
 						Vector2 dir = (mouse_pos - mouse_prev_pos).normalized;
 						for (float i=0; i<diff; i+= WIPE_RADIUS) {
-								wipearea (mouse_prev_pos + dir * i);
+								wipearea (mouse_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
 						}
 				}
 
@@ -159,7 +167,7 @@ public class InputController : MonoBehaviour {
 						float diff = (left_pos - left_prev_pos).magnitude;
 						Vector2 dir = (left_pos - left_prev_pos).normalized;
 						for (float i=0; i<diff; i+= WIPE_RADIUS) {
-							wipearea (left_prev_pos + dir * i);
+						wipearea (left_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
 						}
 		}
 
@@ -177,7 +185,7 @@ public class InputController : MonoBehaviour {
 			float diff = (right_pos - right_prev_pos).magnitude;
 			Vector2 dir = (right_pos - right_prev_pos).normalized;
 			for (float i=0; i<diff; i+= WIPE_RADIUS) {
-				wipearea (right_prev_pos + dir * i);
+				wipearea (right_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
 			}
 		}
 
@@ -188,7 +196,7 @@ public class InputController : MonoBehaviour {
 	}
 
 
-	void wipearea(Vector2 screenpos)
+	void wipearea(Vector2 screenpos, int wipe_radius, float nomist_time, float mistup_time)
 	{
 
 		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
@@ -201,10 +209,10 @@ public class InputController : MonoBehaviour {
 
 		Debug.Log (screenpos.ToString()+ texpos_x.ToString() + " " + texpos_y.ToString());
 
-		for (int i=texpos_x - WIPE_RADIUS; i<texpos_x + WIPE_RADIUS; i++)
-		for (int j=texpos_y - WIPE_RADIUS; j<texpos_y + WIPE_RADIUS; j++) {
+		for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
+		for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
 			Vector2 p = new Vector2(texpos_x - i,texpos_y - j);
-			if(p.magnitude < WIPE_RADIUS &&
+			if(p.magnitude < wipe_radius &&
 			   (i>0 && j>0 && i<tex.width && j<tex.height))
 			{
 				tex.SetPixel (i, j, new Color (0.0f, 0.0f, 0.0f, 0f));
@@ -214,10 +222,10 @@ public class InputController : MonoBehaviour {
 
 		tex.Apply ();
 
-		StartCoroutine(recoverMist (screenpos));
+		StartCoroutine(recoverMist (screenpos,wipe_radius,nomist_time,mistup_time));
 	}
 
-	IEnumerator recoverMist(Vector2 screenpos)
+	IEnumerator recoverMist(Vector2 screenpos, int wipe_radius, float nomist_time, float mistup_time)
 	{
 		//bool[,] map = new bool[WIPE_RADIUS * 2, WIPE_RADIUS * 2];
 
@@ -229,10 +237,10 @@ public class InputController : MonoBehaviour {
 		semaphore_index ++;
 		int semaphore_num = semaphore_index;
 
-		for (int i=texpos_x - WIPE_RADIUS; i<texpos_x + WIPE_RADIUS; i++)
-		for (int j=texpos_y - WIPE_RADIUS; j<texpos_y + WIPE_RADIUS; j++) {
+		for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
+		for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
 			Vector2 p = new Vector2(texpos_x - i,texpos_y - j);
-			if(p.magnitude < WIPE_RADIUS &&
+			if(p.magnitude < wipe_radius &&
 			   (i>0 && j>0 && i<tex.width && j<tex.height))
 			{
 				semaphore [i, j]=semaphore_num;
@@ -240,25 +248,25 @@ public class InputController : MonoBehaviour {
 		}
 
 
-		for (float  k = 0; k< NO_MIST_TIME; k+= Time.deltaTime) 
+		for (float  k = 0; k< nomist_time; k+= Time.deltaTime) 
 		{
 			yield return null;
 		}
 
 
-		for (float  k = 0; k< MIST_UP_TIME + 0.1f; k+= Time.deltaTime) 
+		for (float  k = 0; k< mistup_time + 0.1f; k+= Time.deltaTime) 
 		{			
-			for (int i=texpos_x - WIPE_RADIUS; i<texpos_x + WIPE_RADIUS; i++)
-			for (int j=texpos_y - WIPE_RADIUS; j<texpos_y + WIPE_RADIUS; j++) {
+			for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
+			for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
 				Vector2 p = new Vector2(texpos_x - i,texpos_y - j);
-				if(p.magnitude < WIPE_RADIUS &&
+				if(p.magnitude < wipe_radius &&
 				   (i>0 && j>0 && i<tex.width && j<tex.height))
 				{
 					Color col = initialtex.GetPixel(i,j);
 
 					if(semaphore[i,j] > semaphore_num) continue;
 
-					tex.SetPixel (i, j, new Color (col.r, col.g, col.b, k/MIST_UP_TIME));
+					tex.SetPixel (i, j, new Color (col.r, col.g, col.b, k/mistup_time));
 				}
 			}
 			

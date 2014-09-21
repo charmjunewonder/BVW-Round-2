@@ -13,7 +13,7 @@ public class InputController : MonoBehaviour {
 	private Texture2D initialtex;
 
 	const float HEIGHT_OFFSET = 20;
-	const int WIPE_RADIUS = 15;
+	public const int WIPE_RADIUS = 15;
 	const bool USE_MOUSE = true;
 	const bool USE_LEFT = false;
 	const bool USE_RIGHT = false;
@@ -108,12 +108,12 @@ public class InputController : MonoBehaviour {
 	void adjust_skel_to_fit_screen()
 	{
 		float range_val = range ();
-		Debug.Log (range_val);
+		//Debug.Log (range_val);
 		float distance = ( (range_val * 0.5f) / Mathf.Tan(0.5f * Camera.main.fieldOfView * Mathf.Deg2Rad) );
 		float height = 2.0f * Mathf.Tan(0.5f * Camera.main.fieldOfView * Mathf.Deg2Rad) * distance;
 
 		float cam_to_skel = (main_cam.transform.position - pointskel.transform.position).magnitude;
-		Debug.Log (distance + "  " + cam_to_skel);
+		//Debug.Log (distance + "  " + cam_to_skel);
 		pointskel.scale = cam_to_skel/distance;
 		//Vector3 pos = pointskel.transform.position;
 		//pos.z = -distance;
@@ -202,12 +202,12 @@ public class InputController : MonoBehaviour {
 		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
 
 		Vector3 pos = main_cam.camera.ScreenToWorldPoint (new Vector3 (screenpos.x, screenpos.y, main_cam.camera.nearClipPlane));
-		Debug.Log (pos.x.ToString("f6") +  " " + pos.y.ToString("f6") + pos.z.ToString("f6"));
+		//Debug.Log (pos.x.ToString("f6") +  " " + pos.y.ToString("f6") + pos.z.ToString("f6"));
 
 		int texpos_x = Mathf.FloorToInt((float)screenpos.x * (float)tex.width / (float)Screen.width);
 		int texpos_y = Mathf.FloorToInt ((float)screenpos.y * (float)tex.height / (float)Screen.height);
 
-		Debug.Log (screenpos.ToString()+ texpos_x.ToString() + " " + texpos_y.ToString());
+		//Debug.Log (screenpos.ToString()+ texpos_x.ToString() + " " + texpos_y.ToString());
 
 		for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
 		for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {

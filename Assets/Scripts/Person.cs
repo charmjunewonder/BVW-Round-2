@@ -10,6 +10,8 @@ public class Person : MonoBehaviour {
 	public int priority;
 	public Grid[] destinations;
 	int nextDestination = 1;
+	public bool isFinishedMoving = false;
+
 	public enum ActionState{
 		Walk,
 		Wander,
@@ -83,7 +85,8 @@ public class Person : MonoBehaviour {
 		//StartCoroutine ("doAction");
 		if(++nextDestination < destinations.Length)
 			moveTo(destinations[nextDestination]);
-
+		else
+			isFinishedMoving = true;
 	}
 
 	IEnumerator wander(){

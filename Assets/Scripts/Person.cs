@@ -10,6 +10,8 @@ public class Person : MonoBehaviour {
 	public int priority;
 	public Grid[] destinations;
 	int nextDestination = 1;
+	public bool isFinishedMoving = false;
+
 	public enum ActionState{
 		Walk,
 		Wander,
@@ -24,7 +26,7 @@ public class Person : MonoBehaviour {
 	public void setStartPosition(Grid start){
 		currentPosition = start;
 		start.isOccupied = true;
-		transform.position = new Vector3 (currentPosition.pointOfGrid.x, 0.5f, currentPosition.pointOfGrid.y);
+		transform.position = new Vector3 (currentPosition.pointOfGrid.x, 0.98f, currentPosition.pointOfGrid.y);
 	}
 
 	public void moveTo(Grid destination){
@@ -75,15 +77,21 @@ public class Person : MonoBehaviour {
 			} else{
 				break;
 			}*/
-			transform.position = new Vector3 (nextStep.pointOfGrid.x, 0.5f, nextStep.pointOfGrid.y);
+			Vector3 nextPosition = new Vector3 (nextStep.pointOfGrid.x, 0.98f, nextStep.pointOfGrid.y);
+			transform.rotation = Quaternion.LookRotation(nextPosition-transform.position);
+			while(Vector3.Distance(transform.position, nextPosition) > 0.5f){
+				//transform.position = Vector3.Lerp (transform.position, nextPosition, 2 * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, nextPosition, 2 * Time.deltaTime);
+				yield return null;
+			}
 			currentPosition = nextStep;
-			yield return new WaitForSeconds(0.1f);
 		}
 		yield return new WaitForSeconds(Random.Range(3.0f, 4.0f));
 		//StartCoroutine ("doAction");
 		if(++nextDestination < destinations.Length)
 			moveTo(destinations[nextDestination]);
-
+		else
+			isFinishedMoving = true;
 	}
 
 	IEnumerator wander(){

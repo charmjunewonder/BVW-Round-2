@@ -88,7 +88,7 @@ public class GameController : MonoBehaviour {
 			                                               (int)mapRepresentation.christmasTree.pointOfGrid.y);
 			girls[i].GetComponent<Person>().setStartPosition(startPosition);
 		}
-		//yield return new WaitForSeconds(5.0f);
+		yield return new WaitForSeconds(5.0f);
 
 		Grid[] r5 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
 			mapRepresentation.wineSpirits, mapRepresentation.nailSalon, mapRepresentation.christmasTree};

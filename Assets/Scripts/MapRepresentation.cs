@@ -37,12 +37,12 @@ public class MapRepresentation : MonoBehaviour {
 		holeFood = getGrid (13, 25);
 		wineSpirits = getGrid (33, 12);
 		stationery = getGrid (52, 16);*/
-		christmasTree = getGrid (33, 20);
-		mappleStore = getGrid (6, 16);
-		nailSalon = getGrid (37, 31);
-		holeFood = getGrid (13, 27);
-		wineSpirits = getGrid (33, 10);
-		stationery = getGrid (50, 16);
+		christmasTree = getGrid (19, 6);//
+		mappleStore = getGrid (32, 17);//
+		nailSalon = getGrid (22, 2);
+		holeFood = getGrid (2, 14);//
+		wineSpirits = getGrid (7, 0);
+		stationery = getGrid (14, 14);
 	}
 
 	private void initializeInterestPlaces(){
@@ -167,16 +167,14 @@ public class MapRepresentation : MonoBehaviour {
 					for (int x = 0; x < mapWidth; ++x) {
 						lr.Read(b, 0, 1);
 						Grid g = ScriptableObject.CreateInstance<Grid>();
-						g.setPointOfGrid(x, y);
-						grids[x+y*mapWidth] = g;
+						g.setPointOfGrid(x, mapHeight - y - 1);
+						grids[x+(mapHeight - y - 1)*mapWidth] = g;
 						if (b[0] == '@') {
 							g.gridType = Grid.GridType.UnaccessableGrid;
 							GameObject cubeA = Instantiate(cube) as GameObject;
 							cubeA.transform.position = new Vector3(g.pointOfGrid.x, 0.5f, g.pointOfGrid.y);
 							cubeA.transform.parent = ObstacleGroup.transform;
-							if(x == 36 && y == 32){
-								cubeA.renderer.material.color = Color.black;
-							}
+
 						}
 						else if (b[0] == '.'){
 							g.gridType = Grid.GridType.NormalGrid;

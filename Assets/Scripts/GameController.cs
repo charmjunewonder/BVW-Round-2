@@ -114,30 +114,32 @@ public class GameController : MonoBehaviour {
 
 		yield return new WaitForSeconds(5.0f);
 		phoneGUI.GetComponent<phoneDisplay> ().sendText (1);
-		Grid[] r5 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
+		Grid[] g1 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
 			mapRepresentation.wineSpirits, mapRepresentation.nailSalon, mapRepresentation.christmasTree};
-		girls [0].GetComponent<Person> ().destinations = r5;
+		girls [0].GetComponent<Person> ().destinations = g1;
 		girls [0].GetComponent<Person> ().moveInRoutine ();
+	
 
-		Grid[] y5 = {mapRepresentation.christmasTree, mapRepresentation.wineSpirits, 
-			mapRepresentation.mappleStore, mapRepresentation.holeFood, mapRepresentation.holeFood};
-		girls [1].GetComponent<Person> ().destinations = y5;
-		girls [1].GetComponent<Person> ().moveInRoutine ();
-
-		Grid[] b5 = {mapRepresentation.christmasTree, mapRepresentation.holeFood, 
-			mapRepresentation.christmasTree, mapRepresentation.mappleStore, mapRepresentation.nailSalon};
-		girls [2].GetComponent<Person> ().destinations = b5;
-		girls [2].GetComponent<Person> ().moveInRoutine ();
-
-		Grid[] g5 = {mapRepresentation.christmasTree, mapRepresentation.christmasTree, 
-			mapRepresentation.mappleStore, mapRepresentation.stationery, mapRepresentation.wineSpirits};
-		girls [3].GetComponent<Person> ().destinations = g5;
-		girls [3].GetComponent<Person> ().moveInRoutine ();
-
-		Grid[] p5 = {mapRepresentation.christmasTree, mapRepresentation.wineSpirits, 
+		Grid[] g5 = {mapRepresentation.christmasTree, mapRepresentation.wineSpirits, 
 			mapRepresentation.mappleStore, mapRepresentation.nailSalon, mapRepresentation.mappleStore};
-		girls [4].GetComponent<Person> ().destinations = p5;
+		girls [4].GetComponent<Person> ().destinations = g5;
 		girls [4].GetComponent<Person> ().moveInRoutine ();
-		yield return new WaitForSeconds(1.0f);
+
+		yield return new WaitForSeconds(4.0f);
+
+		Grid[] g2 = {mapRepresentation.christmasTree, mapRepresentation.wineSpirits, 
+			mapRepresentation.mappleStore, mapRepresentation.holeFood, mapRepresentation.holeFood};
+		girls [1].GetComponent<Person> ().destinations = g2;
+		girls [1].GetComponent<Person> ().moveInRoutine ();
+		
+		Grid[] g3 = {mapRepresentation.christmasTree, mapRepresentation.holeFood, 
+			mapRepresentation.christmasTree, mapRepresentation.mappleStore, mapRepresentation.nailSalon};
+		girls [2].GetComponent<Person> ().destinations = g3;
+		girls [2].GetComponent<Person> ().moveInRoutine ();
+		
+		Grid[] g4 = {mapRepresentation.christmasTree, mapRepresentation.christmasTree, 
+			mapRepresentation.mappleStore, mapRepresentation.stationery, mapRepresentation.wineSpirits};
+		girls [3].GetComponent<Person> ().destinations = g4;
+		girls [3].GetComponent<Person> ().moveInRoutine ();
 	}
 }

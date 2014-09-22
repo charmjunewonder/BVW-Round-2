@@ -88,9 +88,10 @@ public class Person : MonoBehaviour {
 			}
 			currentPosition = nextStep;
 		}
-		yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
 		//StartCoroutine ("doAction");
 		if(++nextDestination < destinations.Length){
+			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
+
 			moveTo(destinations[nextDestination]);
 			if(isCheating){
 				switch (nextDestination)

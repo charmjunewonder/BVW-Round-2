@@ -12,8 +12,11 @@ public class InputController : MonoBehaviour {
 	private Texture2D foggytex;
 	private Texture2D initialtex;
 
+	const int GAME_WIPE_RADIUS = 15;
+	const int LOADING_WIPE_RADIUS = 30;
+
 	const float HEIGHT_OFFSET = 20;
-	const int WIPE_RADIUS = 15;
+	int WIPE_RADIUS = 15;
 	const bool USE_MOUSE = true;
 	const bool USE_LEFT = false;
 	const bool USE_RIGHT = false;
@@ -90,11 +93,14 @@ public class InputController : MonoBehaviour {
 		mouse_prev_pos = new Vector2 (0, 0);
 		all_tracked = false;
 
-		Vector3 startwipe = main_cam.camera.WorldToScreenPoint (christmas_tree.transform.position);
-		Vector2 sw_pos = new Vector2 ();
-		sw_pos.x = Screen.width - startwipe.x;
-		sw_pos.y = Screen.height - startwipe.y;
-		wipearea (sw_pos, 80, 3.0f, 3.0f);
+		if (Application.loadedLevelName == "GamePlay") 
+		{
+						Vector3 startwipe = main_cam.camera.WorldToScreenPoint (christmas_tree.transform.position);
+						Vector2 sw_pos = new Vector2 ();
+						sw_pos.x = Screen.width - startwipe.x;
+						sw_pos.y = Screen.height - startwipe.y;
+						wipearea (sw_pos, 100, 3.0f, 3.0f);
+		}
 	}
 
 	bool check_tracked()
@@ -136,6 +142,10 @@ public class InputController : MonoBehaviour {
 		if (!all_tracked && check_tracked ())
 			all_tracked = true;
 
+		if (Application.loadedLevelName == "scene_game")
+						WIPE_RADIUS = LOADING_WIPE_RADIUS;
+				else
+						WIPE_RADIUS = GAME_WIPE_RADIUS;
 
 		if (USE_MOUSE) {
 						Vector2 mousey = Input.mousePosition;

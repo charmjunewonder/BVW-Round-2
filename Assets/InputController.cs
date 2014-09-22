@@ -4,6 +4,7 @@ using System;
 
 public class InputController : MonoBehaviour {
 	public KinectPointController pointskel;
+	public GameObject kinectprefab;
 	public GameObject window;
 	public GameObject main_cam;
 	public GameObject christmas_tree;
@@ -66,6 +67,36 @@ public class InputController : MonoBehaviour {
 		(int)Kinect.NuiSkeletonPositionIndex.WristRight,
 		(int)Kinect.NuiSkeletonPositionIndex.HandRight
 	};
+
+	void Awake()
+	{
+		GameObject obj;
+		if (GameObject.Find ("KinectPrefab") == null) {
+						obj = (GameObject)Instantiate (kinectprefab);
+				} else
+						obj = GameObject.Find ("KinectPrefab");
+
+		KinectPointController[] p = FindObjectsOfType<KinectPointController>();
+		foreach(KinectPointController q in p)
+		{
+			q.sw = obj.GetComponent<SkeletonWrapper>();
+		}
+
+		DisplayDepth[] d = FindObjectsOfType<DisplayDepth>();
+		foreach(DisplayDepth e in d)
+		{
+			e.dw = obj.GetComponent<DepthWrapper>();
+		}
+
+
+		DisplayColor[] c = FindObjectsOfType<DisplayColor>();
+		foreach(DisplayColor b in c)
+		{
+			b.devOrEmu = obj.GetComponent<DeviceOrEmulator>();
+		}
+
+
+	}
 
 	// Use this for initialization
 	void Start () {

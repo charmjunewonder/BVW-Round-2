@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour {
 	public GameObject trackingBall;
 	public const int TRACKING_RADIUS = 3;
 	public GameObject phoneGUI;
+	public bool useKenect;
+	public bool useMouse;
+	public KinectPointController pointskel;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
@@ -50,19 +53,56 @@ public class GameController : MonoBehaviour {
 	IEnumerator checkStatusOfGame(){
 		bool isWin = false;
 		for(int i = 0; i < 50; ++i){
-			Vector2 mouse = Input.mousePosition;
-			Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouse.x, mouse.y, 0));
-			RaycastHit hit;
-			int layerMaskOfMap = 1 << 8;
-			
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMaskOfMap)){
-				if(Vector2.Distance(new Vector2(hit.point.x, hit.point.z), girls[4].GetComponent<Person>().currentPosition.pointOfGrid) < TRACKING_RADIUS){
-					isWin = true;
-					Debug.Log ("win");
-					break;
-				} 
+			if(useMouse){
+				Vector2 mouse = Input.mousePosition;
+				Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouse.x, mouse.y, 0));
+				RaycastHit hit;
+				int layerMaskOfMap = 1 << 8;
+				
+				if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMaskOfMap)){
+					if(Vector2.Distance(new Vector2(hit.point.x, hit.point.z), girls[4].GetComponent<Person>().currentPosition.pointOfGrid) < TRACKING_RADIUS){
+						isWin = true;
+						Debug.Log ("win");
+						break;
+					} 
+				}
+			}
+			if(useKenect){
+				Vector3 lefthandscreenpos = Camera.main.WorldToScreenPoint (pointskel.Hand_Left.transform.position);
+				lefthandscreenpos.y = Screen.height - lefthandscreenpos.y;
+				lefthandscreenpos.x = Screen.width - lefthandscreenpos.x;
+
+				Vector3 righthandscreenpos = Camera.main.WorldToScreenPoint (pointskel.Hand_Right.transform.position);
+				righthandscreenpos.y = Screen.height - righthandscreenpos.y;
+				righthandscreenpos.x = Screen.width - righthandscreenpos.x;
+
+				Ray rayLeft = Camera.main.ScreenPointToRay(lefthandscreenpos);
+				RaycastHit hitLeft;
+				int layerMaskOfMap = 1 << 8;
+				
+				if (Physics.Raycast(rayLeft, out hitLeft, Mathf.Infinity, layerMaskOfMap)){
+					if(Vector2.Distance(new Vector2(hitLeft.point.x, hitLeft.point.z), 
+					                    girls[4].GetComponent<Person>().currentPosition.pointOfGrid) < TRACKING_RADIUS){
+						isWin = true;
+						Debug.Log ("win");
+						break;
+					} 
+				}
+
+				Ray rayRight = Camera.main.ScreenPointToRay(righthandscreenpos);
+				RaycastHit hitRight;
+				
+				if (Physics.Raycast(rayRight, out hitRight, Mathf.Infinity, layerMaskOfMap)){
+					if(Vector2.Distance(new Vector2(hitRight.point.x, hitRight.point.z), 
+					                    girls[4].GetComponent<Person>().currentPosition.pointOfGrid) < TRACKING_RADIUS){
+						isWin = true;
+						Debug.Log ("win");
+						break;
+					} 
+				}
 			}
 			yield return new WaitForSeconds(0.1f);
+
 		}
 
 		if (!isWin){

@@ -34,7 +34,7 @@ public class phoneDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		myTimer+=Time.deltaTime;
+		/*myTimer+=Time.deltaTime;
 		//timer.text = "Time :" + (int)myTimer;
 
 		if (myTimer >= textTime1)
@@ -55,10 +55,10 @@ public class phoneDisplay : MonoBehaviour {
 		if (myTimer >= textTime1 + textTime2 + textTime3 + textTime4) 
 		{
 			sendText(4);
-		}
+		}*/
 	}
 
-	void sendText(int textNum)
+	public void sendText(int textNum)
 	{
 		if (textState == textNum){ // this line can be replaced with messaging system
 

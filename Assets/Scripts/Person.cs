@@ -11,6 +11,8 @@ public class Person : MonoBehaviour {
 	public Grid[] destinations;
 	int nextDestination = 1;
 	public bool isFinishedMoving = false;
+	public bool isCheating;
+	public GameObject phoneGUI;
 
 	public enum ActionState{
 		Walk,
@@ -86,12 +88,33 @@ public class Person : MonoBehaviour {
 			}
 			currentPosition = nextStep;
 		}
-		yield return new WaitForSeconds(Random.Range(3.0f, 4.0f));
+		yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
 		//StartCoroutine ("doAction");
-		if(++nextDestination < destinations.Length)
+		if(++nextDestination < destinations.Length){
 			moveTo(destinations[nextDestination]);
-		else
+			if(isCheating){
+				switch (nextDestination)
+				{
+				case 2:
+					phoneGUI.GetComponent<phoneDisplay> ().sendText (2);
+					break;
+				case 3:
+					phoneGUI.GetComponent<phoneDisplay> ().sendText (3);
+					break;
+				case 4:
+					phoneGUI.GetComponent<phoneDisplay> ().sendText (4);
+					break;
+				}
+			}
+		}else{
 			isFinishedMoving = true;
+		}
+	}
+
+	public void lookAtChristmasTree(){
+		Vector3 christmasTreePosition = new Vector3 (mapRepresentation.christmasTree.pointOfGrid.x, 0.98f, 
+		                                    mapRepresentation.christmasTree.pointOfGrid.y);
+		transform.rotation = Quaternion.LookRotation(christmasTreePosition-transform.position);
 	}
 
 	IEnumerator wander(){

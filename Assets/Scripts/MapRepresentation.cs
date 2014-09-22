@@ -37,7 +37,7 @@ public class MapRepresentation : MonoBehaviour {
 		holeFood = getGrid (13, 25);
 		wineSpirits = getGrid (33, 12);
 		stationery = getGrid (52, 16);*/
-		christmasTree = getGrid (19, 6);//
+		christmasTree = getGrid (20, 6);//
 		mappleStore = getGrid (32, 17);//
 		nailSalon = getGrid (22, 2);
 		holeFood = getGrid (2, 14);//
@@ -137,7 +137,11 @@ public class MapRepresentation : MonoBehaviour {
 		if(!isInsideGrids(x, y)) return null;
 		return grids [y * mapWidth + x];
 	}
-	
+
+	public Grid getGrid(Vector2 position){
+		if(!isInsideGrids((int)position.x, (int)position.y)) return null;
+		return grids [(int)position.y * mapWidth + (int)position.x];
+	}
 	
 	void readMapFromFile(){
 		try

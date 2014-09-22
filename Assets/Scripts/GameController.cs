@@ -114,14 +114,16 @@ public class GameController : MonoBehaviour {
 
 		yield return new WaitForSeconds(5.0f);
 		phoneGUI.GetComponent<phoneDisplay> ().sendText (1);
+		yield return new WaitForSeconds(5.0f);
+
 		Grid[] g1 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
 			mapRepresentation.wineSpirits, mapRepresentation.nailSalon, mapRepresentation.christmasTree};
 		girls [0].GetComponent<Person> ().destinations = g1;
 		girls [0].GetComponent<Person> ().moveInRoutine ();
 	
 
-		Grid[] g5 = {mapRepresentation.christmasTree, mapRepresentation.wineSpirits, 
-			mapRepresentation.mappleStore, mapRepresentation.nailSalon, mapRepresentation.mappleStore};
+		Grid[] g5 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
+			mapRepresentation.wineSpirits, mapRepresentation.mappleStore, mapRepresentation.stationery};
 		girls [4].GetComponent<Person> ().destinations = g5;
 		girls [4].GetComponent<Person> ().moveInRoutine ();
 

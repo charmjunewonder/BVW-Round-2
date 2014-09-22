@@ -92,7 +92,6 @@ public class Person : MonoBehaviour {
 		if(++nextDestination < destinations.Length){
 			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
 
-			moveTo(destinations[nextDestination]);
 			if(isCheating){
 				switch (nextDestination)
 				{
@@ -107,6 +106,9 @@ public class Person : MonoBehaviour {
 					break;
 				}
 			}
+			yield return new WaitForSeconds(Random.Range(2.0f, 3.0f));
+			moveTo(destinations[nextDestination]);
+
 		}else{
 			isFinishedMoving = true;
 		}

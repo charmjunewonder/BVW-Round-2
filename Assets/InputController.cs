@@ -13,7 +13,7 @@ public class InputController : MonoBehaviour {
 	private Texture2D foggytex;
 	private Texture2D initialtex;
 
-	const int GAME_WIPE_RADIUS = 15;
+	const int GAME_WIPE_RADIUS = 30;
 	const int LOADING_WIPE_RADIUS = 30;
 
 	const float HEIGHT_OFFSET = 20;
@@ -130,7 +130,7 @@ public class InputController : MonoBehaviour {
 						Vector2 sw_pos = new Vector2 ();
 						sw_pos.x = Screen.width - startwipe.x;
 						sw_pos.y = Screen.height - startwipe.y;
-						wipearea (sw_pos, 100, 3.0f, 3.0f);
+						wipearea (sw_pos, 100, 3.0f, 3.0f,50);
 		}
 	}
 
@@ -166,7 +166,12 @@ public class InputController : MonoBehaviour {
 
 		window.transform.localScale = new Vector3 (width * 0.1f, 1, height * 0.1f);
 	}
-	
+
+
+	void FixedUpdate()
+	{
+		}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -237,7 +242,7 @@ public class InputController : MonoBehaviour {
 	}
 
 
-	void wipearea(Vector2 screenpos, int wipe_radius, float nomist_time, float mistup_time)
+	void wipearea(Vector2 screenpos, int wipe_radius, float nomist_time, float mistup_time, float blur_radius = 15.0f)
 	{
 
 		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
@@ -256,7 +261,13 @@ public class InputController : MonoBehaviour {
 			if(p.magnitude < wipe_radius &&
 			   (i>0 && j>0 && i<tex.width && j<tex.height))
 			{
-				tex.SetPixel (i, j, new Color (0.0f, 0.0f, 0.0f, 0f));
+				Color col = tex.GetPixel(i,j);
+				float blur_alpha = 1.0f;
+
+				if(p.magnitude > (wipe_radius - blur_radius))
+				   blur_alpha = Mathf.Clamp01(1.0f - (p.magnitude - (wipe_radius - blur_radius))/blur_radius);
+
+				tex.SetPixel (i, j, new Color (col.r, col.g, col.b, col.a - blur_alpha));
 				semaphore[i,j] ++;
 			}
 						}
@@ -303,11 +314,12 @@ public class InputController : MonoBehaviour {
 				if(p.magnitude < wipe_radius &&
 				   (i>0 && j>0 && i<tex.width && j<tex.height))
 				{
-					Color col = initialtex.GetPixel(i,j);
+					Color col = tex.GetPixel(i,j);
+					//float curalpha = tex.GetPixel(i,j).a;
 
 					if(semaphore[i,j] > semaphore_num) continue;
 
-					tex.SetPixel (i, j, new Color (col.r, col.g, col.b, k/mistup_time));
+					tex.SetPixel (i, j, new Color (col.r, col.g, col.b, Mathf.Clamp01(col.a + Time.deltaTime/mistup_time)));
 				}
 			}
 			

@@ -84,6 +84,7 @@ public class KinectPointController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		sw = GameObject.Find ("KinectPrefab").GetComponent<SkeletonWrapper>();
 		//store bones in a list for easier access
 		_bones = new GameObject[(int)Kinect.NuiSkeletonPositionIndex.Count] {Hip_Center, Spine, Shoulder_Center, Head,
 			Shoulder_Left, Elbow_Left, Wrist_Left, Hand_Left,

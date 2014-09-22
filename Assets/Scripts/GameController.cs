@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour {
 	public GameObject map;
 	MapRepresentation mapRepresentation;
 	public GameObject trackingBall;
-	public const int TRACKING_RADIUS = InputController.WIPE_RADIUS / 3;
+	public const int TRACKING_RADIUS = 15 / 3;
 
 	// Use this for initialization
 	void Start () {

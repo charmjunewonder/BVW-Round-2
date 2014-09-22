@@ -9,6 +9,7 @@ public class DisplayDepth : MonoBehaviour {
 	private Texture2D tex;
 	// Use this for initialization
 	void Start () {
+		dw = GameObject.Find ("KinectPrefab").GetComponent<DepthWrapper> ();
 		tex = new Texture2D(320,240,TextureFormat.ARGB32,false);
 		renderer.material.mainTexture = tex;
 	}

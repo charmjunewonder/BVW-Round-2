@@ -170,7 +170,8 @@ public class InputController : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		}
+
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -190,11 +191,15 @@ public class InputController : MonoBehaviour {
 
 						mouse_prev_pos = mouse_pos;
 						mouse_pos = mousey;
-						float diff = (mouse_pos - mouse_prev_pos).magnitude;
-						Vector2 dir = (mouse_pos - mouse_prev_pos).normalized;
-						for (float i=0; i<diff; i+= WIPE_RADIUS) {
-								wipearea (mouse_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
-						}
+						
+
+//						float diff = (mouse_pos - mouse_prev_pos).magnitude;
+//						Vector2 dir = (mouse_pos - mouse_prev_pos).normalized;
+//						for (float i=0; i<diff; i+= WIPE_RADIUS) {
+//								wipearea (mouse_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
+//						}
+
+						wipearea2 (mouse_pos,mouse_prev_pos,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
 				}
 
 	
@@ -210,11 +215,13 @@ public class InputController : MonoBehaviour {
 						left_pos.x = lefthandscreenpos.x;
 						left_pos.y = lefthandscreenpos.y;
 
-						float diff = (left_pos - left_prev_pos).magnitude;
-						Vector2 dir = (left_pos - left_prev_pos).normalized;
-						for (float i=0; i<diff; i+= WIPE_RADIUS) {
-						wipearea (left_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
-						}
+//						float diff = (left_pos - left_prev_pos).magnitude;
+//						Vector2 dir = (left_pos - left_prev_pos).normalized;
+//						for (float i=0; i<diff; i+= WIPE_RADIUS) {
+//						wipearea (left_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
+//						}
+
+			wipearea2 (left_pos,left_prev_pos,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
 		}
 
 		if (all_tracked && USE_RIGHT) 
@@ -228,11 +235,13 @@ public class InputController : MonoBehaviour {
 			right_pos.x = righthandscreenpos.x;
 			right_pos.y = righthandscreenpos.y;
 			
-			float diff = (right_pos - right_prev_pos).magnitude;
-			Vector2 dir = (right_pos - right_prev_pos).normalized;
-			for (float i=0; i<diff; i+= WIPE_RADIUS) {
-				wipearea (right_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
-			}
+//			float diff = (right_pos - right_prev_pos).magnitude;
+//			Vector2 dir = (right_pos - right_prev_pos).normalized;
+//			for (float i=0; i<diff; i+= WIPE_RADIUS) {
+//				wipearea (right_prev_pos + dir * i,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
+//			}
+
+			wipearea2 (right_pos,right_prev_pos,WIPE_RADIUS,NO_MIST_TIME,MIST_UP_TIME);
 		}
 
 		//if(!scaled && check_tracked())
@@ -240,6 +249,103 @@ public class InputController : MonoBehaviour {
 
 		((Texture2D)window.renderer.material.mainTexture).Apply ();
 	}
+
+
+	void wipearea2(Vector2 screenpos, Vector2 prevpos, int wipe_radius, float nomist_time, float mistup_time, float blur_radius = 15.0f)
+	{
+		//Debug.Log (screenpos + " " + prevpos);
+		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
+		
+
+		float diff = (screenpos - prevpos).magnitude;
+		Vector2 dir = (screenpos - prevpos).normalized;
+		Vector2 pos = prevpos;
+
+		//semaphore_index++;
+		int index = semaphore_index;
+
+
+		for (float a=0; a<diff; a+= wipe_radius) {
+			pos = prevpos + dir * a;
+						int texpos_x = Mathf.FloorToInt ((float)pos.x * (float)tex.width / (float)Screen.width);
+						int texpos_y = Mathf.FloorToInt ((float)pos.y * (float)tex.height / (float)Screen.height);
+		
+						//Debug.Log (screenpos.ToString()+ texpos_x.ToString() + " " + texpos_y.ToString());
+						semaphore_index++;
+						int index2 = semaphore_index;
+		
+						for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
+								for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
+										Vector2 p = new Vector2 (texpos_x - i, texpos_y - j);
+										if (p.magnitude < wipe_radius &&
+												(i > 0 && j > 0 && i < tex.width && j < tex.height)) {
+												
+												Color col = tex.GetPixel (i, j);
+												float blur_alpha = 1.0f;
+				
+												if (p.magnitude > (wipe_radius - blur_radius))
+														blur_alpha = Mathf.Clamp01 (1.0f - (p.magnitude - (wipe_radius - blur_radius)) / blur_radius);
+				
+												tex.SetPixel (i, j, new Color (col.r, col.g, col.b, Mathf.Clamp01 (col.a - blur_alpha)));
+												semaphore [i, j]= index2;
+										}
+								}
+					
+		
+				}
+		StartCoroutine(recoverMist2 (screenpos,prevpos,wipe_radius,nomist_time,mistup_time,index));
+	}
+
+
+	IEnumerator recoverMist2(Vector2 screenpos, Vector2 prevpos, int wipe_radius, float nomist_time, float mistup_time,int startindex)
+	{
+		//bool[,] map = new bool[WIPE_RADIUS * 2, WIPE_RADIUS * 2];
+
+		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
+		int semaphore_num = startindex;
+
+		float diff = (screenpos - prevpos).magnitude;
+		Vector2 dir = (screenpos - prevpos).normalized;
+		Vector2 pos = prevpos;
+
+		
+		for (float  k = 0; k< nomist_time; k+= Time.deltaTime) 
+		{
+			yield return null;
+		}
+
+		
+		for (float  k = 0; k< mistup_time + 0.1f; k+= Time.deltaTime) 
+		{
+			semaphore_num = startindex;
+			for (float a=0; a<diff; a+= wipe_radius) {
+
+				semaphore_num++;
+				pos = prevpos + dir * a;
+				int texpos_x = Mathf.FloorToInt ((float)pos.x * (float)tex.width / (float)Screen.width);
+				int texpos_y = Mathf.FloorToInt ((float)pos.y * (float)tex.height / (float)Screen.height);
+
+				for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
+				for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
+					Vector2 p = new Vector2(texpos_x - i,texpos_y - j);
+					if(p.magnitude < wipe_radius &&
+					   (i>0 && j>0 && i<tex.width && j<tex.height) &&
+					   semaphore[i,j] <= semaphore_num)
+					{
+						Color col = tex.GetPixel(i,j);
+						tex.SetPixel (i, j, new Color (col.r, col.g, col.b, Mathf.Clamp01(col.a + Time.deltaTime/mistup_time)));
+
+					}
+				}
+			}
+			//yield return new WaitForEndOfFrame();
+			yield return null;
+		}
+		
+		
+	}
+
+
 
 
 	void wipearea(Vector2 screenpos, int wipe_radius, float nomist_time, float mistup_time, float blur_radius = 15.0f)
@@ -254,6 +360,9 @@ public class InputController : MonoBehaviour {
 		int texpos_y = Mathf.FloorToInt ((float)screenpos.y * (float)tex.height / (float)Screen.height);
 
 		//Debug.Log (screenpos.ToString()+ texpos_x.ToString() + " " + texpos_y.ToString());
+		semaphore_index++;
+		int index = semaphore_index;
+
 
 		for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
 		for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
@@ -261,23 +370,23 @@ public class InputController : MonoBehaviour {
 			if(p.magnitude < wipe_radius &&
 			   (i>0 && j>0 && i<tex.width && j<tex.height))
 			{
+				if(semaphore[i,j] == index) continue;
 				Color col = tex.GetPixel(i,j);
 				float blur_alpha = 1.0f;
 
 				if(p.magnitude > (wipe_radius - blur_radius))
 				   blur_alpha = Mathf.Clamp01(1.0f - (p.magnitude - (wipe_radius - blur_radius))/blur_radius);
 
-				tex.SetPixel (i, j, new Color (col.r, col.g, col.b, col.a - blur_alpha));
-				semaphore[i,j] ++;
+				tex.SetPixel (i, j, new Color (col.r, col.g, col.b, Mathf.Clamp01(col.a - blur_alpha)));
+				semaphore[i,j] = index;
 			}
-						}
+		}
 
-		tex.Apply ();
 
-		StartCoroutine(recoverMist (screenpos,wipe_radius,nomist_time,mistup_time));
+		StartCoroutine(recoverMist (screenpos,wipe_radius,nomist_time,mistup_time,index));
 	}
 
-	IEnumerator recoverMist(Vector2 screenpos, int wipe_radius, float nomist_time, float mistup_time)
+	IEnumerator recoverMist(Vector2 screenpos, int wipe_radius, float nomist_time, float mistup_time, int index)
 	{
 		//bool[,] map = new bool[WIPE_RADIUS * 2, WIPE_RADIUS * 2];
 
@@ -286,18 +395,8 @@ public class InputController : MonoBehaviour {
 		int texpos_x = Mathf.FloorToInt((float)screenpos.x * (float)tex.width / (float)Screen.width);
 		int texpos_y = Mathf.FloorToInt ((float)screenpos.y * (float)tex.height / (float)Screen.height);
 
-		semaphore_index ++;
-		int semaphore_num = semaphore_index;
-
-		for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
-		for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
-			Vector2 p = new Vector2(texpos_x - i,texpos_y - j);
-			if(p.magnitude < wipe_radius &&
-			   (i>0 && j>0 && i<tex.width && j<tex.height))
-			{
-				semaphore [i, j]=semaphore_num;
-			}
-		}
+		//semaphore_index ++;
+		int semaphore_num = index;
 
 
 		for (float  k = 0; k< nomist_time; k+= Time.deltaTime) 
@@ -311,20 +410,18 @@ public class InputController : MonoBehaviour {
 			for (int i=texpos_x - wipe_radius; i<texpos_x + wipe_radius; i++)
 			for (int j=texpos_y - wipe_radius; j<texpos_y + wipe_radius; j++) {
 				Vector2 p = new Vector2(texpos_x - i,texpos_y - j);
+				
+
+
 				if(p.magnitude < wipe_radius &&
 				   (i>0 && j>0 && i<tex.width && j<tex.height))
 				{
-					Color col = tex.GetPixel(i,j);
-					//float curalpha = tex.GetPixel(i,j).a;
-
 					if(semaphore[i,j] > semaphore_num) continue;
-
+					Color col = tex.GetPixel(i,j);
+					//float curalpha = tex.GetPixel(i,j).
 					tex.SetPixel (i, j, new Color (col.r, col.g, col.b, Mathf.Clamp01(col.a + Time.deltaTime/mistup_time)));
 				}
 			}
-			
-			//tex.Apply ();
-
 			yield return null;
 		}
 

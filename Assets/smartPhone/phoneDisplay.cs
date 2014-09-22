@@ -21,7 +21,7 @@ public class phoneDisplay : MonoBehaviour {
 	float textMargin = 0.0798f;
 
 	// Maximum text y position
-	float ceiling = 0.66f;
+	float ceiling = 0.76f;
 
 	// variable that stores current text status
 	int textState = 0;
@@ -30,9 +30,8 @@ public class phoneDisplay : MonoBehaviour {
 	void Start () {
 		textState = 1;
 	}
-	
+
 	// Update is called once per frame
-	
 	void Update () 
 	{
 		myTimer+=Time.deltaTime;
@@ -79,20 +78,30 @@ public class phoneDisplay : MonoBehaviour {
 				}
 			}
 
+			GameObject curText;
+
 			// display new text
             switch (textNum)
 			{
 			case 1:
-				Instantiate(text1);
+//				curText = Instantiate(text1) as GameObject;
+//				curText.transform.parent = transform;
+				text1.gameObject.SetActive(true);
 				break;
 			case 2:
-				Instantiate(text2);
+//				curText = Instantiate(text2) as GameObject;
+//				curText.transform.parent = transform;
+				text2.gameObject.SetActive(true);
 				break;
 			case 3:
-				Instantiate(text3);
+//				curText = Instantiate(text3) as GameObject;
+//				curText.transform.parent = transform;
+				text3.gameObject.SetActive(true);
 				break;
 			case 4:
-				Instantiate(text4);
+//				curText = Instantiate(text4) as GameObject;
+//				curText.transform.parent = transform;
+				text4.gameObject.SetActive(true);
 				break;
 			}
             textState++;

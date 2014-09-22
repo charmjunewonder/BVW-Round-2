@@ -7,8 +7,8 @@ using System;
 public class MapRepresentation : MonoBehaviour {
 
 	Grid[] grids;
-	int mapWidth  = 60;
-	int mapHeight = 40;
+	int mapWidth  = 40;
+	int mapHeight = 23;
 	int width;
 	int height;
 	public GameObject cube;
@@ -142,7 +142,7 @@ public class MapRepresentation : MonoBehaviour {
 	void readMapFromFile(){
 		try
 		{
-			using (StreamReader sr = new StreamReader("LargeMap.txt"))
+			using (StreamReader sr = new StreamReader("SmallMap.txt"))
 			{
 				char[] b = new char[1];
 				/*for (int x = height-1; x >1; --x) {

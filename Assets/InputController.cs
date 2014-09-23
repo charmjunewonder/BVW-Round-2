@@ -19,8 +19,8 @@ public class InputController : MonoBehaviour {
 	const float HEIGHT_OFFSET = 20;
 	int WIPE_RADIUS = 15;
 	const bool USE_MOUSE = true;
-	const bool USE_LEFT = false;
-	const bool USE_RIGHT = false;
+	const bool USE_LEFT = true;
+	const bool USE_RIGHT = true;
 
 	const float NO_MIST_TIME = 1.0f;
 	const float MIST_UP_TIME = 3.0f;

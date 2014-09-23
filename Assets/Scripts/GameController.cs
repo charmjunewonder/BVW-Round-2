@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 	public bool useKenect;
 	public bool useMouse;
 	public KinectPointController pointskel;
+	public GameObject window;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		checkifWin ();
 		/*Vector2 mouse = Input.mousePosition;
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouse.x, mouse.y, 0));
 		RaycastHit hit;
@@ -48,6 +50,32 @@ public class GameController : MonoBehaviour {
 			}
 			yield return new WaitForSeconds(0.5f);
 		}
+	}
+
+
+	bool checkifWin()
+	{
+		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
+
+
+		//girl2 is the red girl
+			Vector3 pos = girls[2].transform.position;
+			Vector3 p = Camera.main.WorldToScreenPoint(pos);
+			Vector2 screenpos = new Vector2();
+			screenpos.x = Screen.width - p.x;
+			screenpos.y = Screen.height - p.y;
+			screenpos.x  = Mathf.FloorToInt((float)screenpos.x * (float)tex.width / (float)Screen.width);
+			screenpos.y = Mathf.FloorToInt ((float)screenpos.y * (float)tex.height / (float)Screen.height);
+			Color col = tex.GetPixel(Mathf.FloorToInt(screenpos.x),Mathf.FloorToInt(screenpos.y));
+
+			if(col.a < 0.5f)
+			{
+				Debug.Log ("WIN");
+				return true;
+			}
+	
+
+		return false;
 	}
 
 	IEnumerator checkStatusOfGame(){

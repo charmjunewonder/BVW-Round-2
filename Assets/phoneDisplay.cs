@@ -45,10 +45,14 @@ public class phoneDisplay : MonoBehaviour {
 	Rect textNewRect;
 
 	float textJumpAmount;
+	AudioSource phoneSms;
+	AudioSource phoneVibration;
 
 	// Use this for initialization
 	void Start () {
-
+		Component[] aSources = GetComponents<AudioSource>();
+		phoneVibration = (AudioSource)aSources [0];
+		phoneSms = (AudioSource)aSources [1];
 		// inits text number state
 		textState = 1;
 
@@ -135,8 +139,10 @@ public class phoneDisplay : MonoBehaviour {
 		if (textState == textNum){ // this line can be replaced with messaging system
 
 			// play the sound
-			audio.Play();
-			
+			//audio.Play();
+			phoneSms.Play();
+			phoneVibration.Play();
+
 			// move every texts upward
 			prevTexts = GameObject.FindGameObjectsWithTag("text");
 

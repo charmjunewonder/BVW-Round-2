@@ -24,7 +24,6 @@ public class GameController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		checkifWin ();
 		/*Vector2 mouse = Input.mousePosition;
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouse.x, mouse.y, 0));
 		RaycastHit hit;
@@ -45,21 +44,29 @@ public class GameController : MonoBehaviour {
 	IEnumerator checkIfSuspendFinishedMoving(){
 		while (true) {
 			if(girls[4].GetComponent<Person>().isFinishedMoving){
-				StartCoroutine ("checkStatusOfGame");
-				break;
+				//StartCoroutine ("checkStatusOfGame");
+				if(checkIfWin()){
+					Debug.Log ("WIN");
+					Application.LoadLevel("HappyEnding");
+					break;
+				} else{
+					Debug.Log ("Loss");
+					Application.LoadLevel("BadEnding");
+					break;
+				}
 			}
 			yield return new WaitForSeconds(0.5f);
 		}
 	}
 
 
-	bool checkifWin()
+	bool checkIfWin()
 	{
 		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
 
 
-		//girl2 is the red girl
-			Vector3 pos = girls[2].transform.position;
+		//girl4 is the red girl
+			Vector3 pos = girls[4].transform.position;
 			Vector3 p = Camera.main.WorldToScreenPoint(pos);
 			Vector2 screenpos = new Vector2();
 			screenpos.x = Screen.width - p.x;

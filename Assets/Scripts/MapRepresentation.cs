@@ -22,8 +22,12 @@ public class MapRepresentation : MonoBehaviour {
 	public Grid wineSpirits;
 	public Grid stationery;
 
+	public TextAsset asset; // Assign that variable through inspector
+	private string assetText;
+
 	// Use this for initialization
 	void Start () {
+		assetText = asset.text;
 		width = (int)renderer.bounds.size.x / Grid.GRID_SIZE;
 		height = (int)renderer.bounds.size.z / Grid.GRID_SIZE;
 		grids = new Grid[mapWidth * mapHeight];
@@ -146,25 +150,9 @@ public class MapRepresentation : MonoBehaviour {
 	void readMapFromFile(){
 		try
 		{
-			using (StreamReader sr = new StreamReader("SmallMap.txt"))
+			/*using (StreamReader sr = new StreamReader(assetText))
 			{
 				char[] b = new char[1];
-				/*for (int x = height-1; x >1; --x) {
-					for (int y = 0; y < width; ++y) {
-						sr.Read(b, 0, 1);
-						Grid g = ScriptableObject.CreateInstance<Grid>();
-						g.setPointOfGrid(y, height-x+1);
-						grids[y+(height-x+1)*height] = g;
-						if (b[0] == '@') {
-							g.gridType = Grid.GridType.UnaccessableGrid;
-							GameObject cubeA = Instantiate(cube) as GameObject;
-							cubeA.transform.position = new Vector3(g.pointOfGrid.y, 0.5f, g.pointOfGrid.x);
-						}
-						else if (b[0] == '.'){
-							g.gridType = Grid.GridType.NormalGrid;
-						}
-					}
-				}*/
 
 				for (int y = 0; y < mapHeight; ++y) {
 					StringReader lr = new StringReader(sr.ReadLine());
@@ -186,6 +174,30 @@ public class MapRepresentation : MonoBehaviour {
 					}
 				}
 
+			}*/
+			StringReader strReader = new StringReader(assetText);
+			char[] b = new char[1];
+			
+			for (int y = 0; y < mapHeight; ++y) {
+				string aLine = strReader.ReadLine();
+				StringReader lr = new StringReader(aLine);
+
+				for (int x = 0; x < mapWidth; ++x) {
+					lr.Read(b, 0, 1);
+					Grid g = ScriptableObject.CreateInstance<Grid>();
+					g.setPointOfGrid(x, mapHeight - y - 1);
+					grids[x+(mapHeight - y - 1)*mapWidth] = g;
+					if (b[0] == '@') {
+						g.gridType = Grid.GridType.UnaccessableGrid;
+						GameObject cubeA = Instantiate(cube) as GameObject;
+						cubeA.transform.position = new Vector3(g.pointOfGrid.x, 0.5f, g.pointOfGrid.y);
+						cubeA.transform.parent = ObstacleGroup.transform;
+						
+					}
+					else if (b[0] == '.'){
+						g.gridType = Grid.GridType.NormalGrid;
+					}
+				}
 			}
 		}
 		catch (Exception e)

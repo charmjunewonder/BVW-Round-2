@@ -44,6 +44,6 @@ public class loadingscript : MonoBehaviour {
 						if (flagarray [i] == false)
 								return;
 
-		Application.LoadLevel ("GamePlay");
+		Application.LoadLevel ("StoryScene");
 	}
 }

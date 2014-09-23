@@ -60,7 +60,7 @@ public class phoneDisplay : MonoBehaviour {
 		phoneWidth = phoneHeight * 0.5f;
 		
 		phoneLeftMargin = Screen.width * 0.01f;
-		phoneBottomMargin = phoneHeight * 0.4f;
+		phoneBottomMargin = phoneHeight * 0.5f;
 
 		textWidth = phoneWidth * 0.78f;
 		textHeight = phoneHeight * 0.1f;

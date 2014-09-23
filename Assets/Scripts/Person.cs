@@ -98,16 +98,21 @@ public class Person : MonoBehaviour {
 				case 2:
 					phoneGUI.GetComponent<phoneDisplay> ().sendText (2);
 					break;
-				case 3:
-					phoneGUI.GetComponent<phoneDisplay> ().sendText (3);
-					break;
-				case 4:
-					phoneGUI.GetComponent<phoneDisplay> ().sendText (4);
-					break;
 				}
 			}
 			yield return new WaitForSeconds(Random.Range(2.0f, 3.0f));
 			moveTo(destinations[nextDestination]);
+			if(isCheating){
+				switch (nextDestination)
+				{
+				case 4:
+					phoneGUI.GetComponent<phoneDisplay> ().sendText (3);
+					yield return new WaitForSeconds(2.0f);
+					
+					phoneGUI.GetComponent<phoneDisplay> ().sendText (4);
+					break;
+				}
+			}
 
 		}else{
 			isFinishedMoving = true;

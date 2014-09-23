@@ -42,11 +42,11 @@ public class MapRepresentation : MonoBehaviour {
 		wineSpirits = getGrid (33, 12);
 		stationery = getGrid (52, 16);*/
 		christmasTree = getGrid (20, 6);//
-		mappleStore = getGrid (32, 17);//
-		nailSalon = getGrid (22, 2);
+		mappleStore = getGrid (32, 13);//
+		nailSalon = getGrid (30, 18);
 		holeFood = getGrid (2, 14);//
-		wineSpirits = getGrid (7, 0);
-		stationery = getGrid (14, 14);
+		wineSpirits = getGrid (13, 14);//
+		stationery = getGrid (5, 14);//
 	}
 
 	private void initializeInterestPlaces(){
@@ -189,9 +189,9 @@ public class MapRepresentation : MonoBehaviour {
 					grids[x+(mapHeight - y - 1)*mapWidth] = g;
 					if (b[0] == '@') {
 						g.gridType = Grid.GridType.UnaccessableGrid;
-						GameObject cubeA = Instantiate(cube) as GameObject;
-						cubeA.transform.position = new Vector3(g.pointOfGrid.x, 0.5f, g.pointOfGrid.y);
-						cubeA.transform.parent = ObstacleGroup.transform;
+//						GameObject cubeA = Instantiate(cube) as GameObject;
+//						cubeA.transform.position = new Vector3(g.pointOfGrid.x, 0.5f, g.pointOfGrid.y);
+//						cubeA.transform.parent = ObstacleGroup.transform;
 						
 					}
 					else if (b[0] == '.'){

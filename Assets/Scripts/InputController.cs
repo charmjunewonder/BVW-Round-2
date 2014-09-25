@@ -8,7 +8,7 @@ public class InputController : MonoBehaviour {
 	public GameObject window;
 	public GameObject main_cam;
 	public GameObject christmas_tree;
-
+	public foggywindowscript foggyscript;
 
 	private Texture2D foggytex;
 	private Texture2D initialtex;
@@ -39,6 +39,7 @@ public class InputController : MonoBehaviour {
 
 	bool scaled;
 	bool all_tracked;
+	bool initwiped;
 
 	int[] leftlimb = {
 		(int)Kinect.NuiSkeletonPositionIndex.HipLeft,
@@ -123,15 +124,16 @@ public class InputController : MonoBehaviour {
 		mouse_pos = new Vector2 (0, 0);
 		mouse_prev_pos = new Vector2 (0, 0);
 		all_tracked = false;
+		initwiped = false;
+	}
 
-		if (Application.loadedLevelName == "GamePlay") 
-		{
-						Vector3 startwipe = main_cam.camera.WorldToScreenPoint (christmas_tree.transform.position);
-						Vector2 sw_pos = new Vector2 ();
-						sw_pos.x = Screen.width - startwipe.x;
-						sw_pos.y = Screen.height - startwipe.y;
-						wipearea (sw_pos, 100, 3.0f, 3.0f,50);
-		}
+	void InitialWipe()
+	{
+			Vector3 startwipe = main_cam.camera.WorldToScreenPoint (christmas_tree.transform.position);
+			Vector2 sw_pos = new Vector2 ();
+			sw_pos.x = Screen.width - startwipe.x;
+			sw_pos.y = Screen.height - startwipe.y;
+			wipearea (sw_pos, 300, 3.0f, 3.0f,50);
 	}
 
 	bool check_tracked()
@@ -178,6 +180,12 @@ public class InputController : MonoBehaviour {
 
 		if (!all_tracked && check_tracked ())
 			all_tracked = true;
+
+		if (foggyscript.HasShot () && !initwiped) 
+		{
+			initwiped = true;
+			InitialWipe();
+		}
 
 		if (Application.loadedLevelName == "scene_game")
 						WIPE_RADIUS = LOADING_WIPE_RADIUS;

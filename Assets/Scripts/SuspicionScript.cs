@@ -5,15 +5,13 @@ public class SuspicionScript : MonoBehaviour {
 	public GameObject window;
 	public GameObject[] girls;
 
+	bool start;
+
 	// Use this for initialization
 	void Start () {
 
-		for (int i=0; i<girls.Length; i++) 
-		{
-			//girls[i].GetComponentInChildren<lifebarwrapper>().reset();
-			//setVisible (ref girls [i], false);
-			//girls[i].GetComponentInChildren<lifebarwrapper>().gameObject.SetActive(false);
-		}
+		start = false;
+		StartCoroutine (Wait ());
 	}
 
 	bool checkIfSeen(int girl_index)
@@ -40,9 +38,18 @@ public class SuspicionScript : MonoBehaviour {
 				return false;
 	}
 
+	IEnumerator Wait()
+	{
+		yield return new WaitForSeconds (7.0f);
+		start = true;
+	}
+
 
 	// Update is called once per frame
 	void Update () {
+		if (!start)
+			return;
+
 		for(int i=0;i<girls.Length;i++)
 		{
 			lifebarwrapper lifebar = girls[i].GetComponentInChildren<lifebarwrapper>();

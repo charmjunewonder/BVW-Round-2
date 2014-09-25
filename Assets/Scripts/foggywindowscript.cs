@@ -6,6 +6,7 @@ public class foggywindowscript : MonoBehaviour {
 	public GameObject[] girls;
 	public GameObject window;
 
+
 	Texture2D tex;
 	Texture2D smalltex;
 
@@ -34,7 +35,7 @@ public class foggywindowscript : MonoBehaviour {
 
 		Debug.Log ("hello");
 		shot = true;
-		//Camera.main.gameObject.GetComponent<BlurEffect> ().enabled = false;
+
 
 	}
 	// Use this for initialization
@@ -55,7 +56,12 @@ public class foggywindowscript : MonoBehaviour {
 		setVisible (window, true);
 
 	}
-	
+
+	public bool HasShot()
+	{
+		return shot;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		//if(shot)

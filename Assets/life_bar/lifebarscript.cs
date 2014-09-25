@@ -4,7 +4,7 @@ using System.Collections;
 public class lifebarscript : MonoBehaviour {
 
 	const float BASE_ALPHA = 0.01f;
-	const float ALPHA_STEP = 0.2f;
+	const float ALPHA_STEP = 0.25f;
 	float alpha;
 	// Use this for initialization
 	void Start () {

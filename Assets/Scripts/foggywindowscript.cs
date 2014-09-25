@@ -15,28 +15,22 @@ public class foggywindowscript : MonoBehaviour {
 		if (shot)
 			return;
 		tex.ReadPixels (new Rect (0, 0, Screen.width, Screen.height), 0, 0);
-		smalltex = new Texture2D (1024, 1024,TextureFormat.ARGB32,false);
+		smalltex = (Texture2D)Instantiate(window.renderer.material.mainTexture);
+		Texture2D frosty = (Texture2D)window.renderer.material.mainTexture;
 
-		for (int i=0; i<1024; i++)
-						for (int j=0; j<1024; j++) {
-								smalltex.SetPixel (i, j, tex.GetPixelBilinear (i / 1024.0f, j / 1024.0f) + new Color(.3f,.3f,.3f,1.0f));
+
+		for (int i=0; i<smalltex.width; i++)
+			for (int j=0; j<smalltex.height; j++) {
+			Color scene = tex.GetPixelBilinear ((float)i / smalltex.width, (float)j / smalltex.height);
+			Color frost = frosty.GetPixelBilinear((float)i / smalltex.width, (float)j / smalltex.height);
+
+
+			smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.75f + scene + Color.cyan * 0.1f);
 						}
-
-//		Color[] pixels = smalltex.GetPixels ();
-//		for (int i=0; i<pixels.Length; i++) 
-//		{
-//			pixels[i].r=Mathf.Clamp01(pixels[i].r+0.3f);
-//			pixels[i].g=Mathf.Clamp01(pixels[i].g+0.3f);
-//			pixels[i].b=Mathf.Clamp01(pixels[i].b+0.3f);
-//			pixels[i].a = 1.0f;
-//
-//		}
-//		smalltex.SetPixels (pixels);
-
+		tex.filterMode = FilterMode.Trilinear;
 
 		smalltex.Apply ();
 		window.renderer.material.mainTexture = smalltex;
-		//tex.filterMode = FilterMode.Trilinear;
 
 		Debug.Log ("hello");
 		shot = true;

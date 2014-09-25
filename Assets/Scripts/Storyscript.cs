@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class Storyscript : MonoBehaviour {
+public class StoryScript : MonoBehaviour {
 	MovieTexture mov;
 
 	// Use this for initialization

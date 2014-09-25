@@ -7,8 +7,8 @@ using System;
 public class MapRepresentation : MonoBehaviour {
 
 	Grid[] grids;
-	int mapWidth  = 40;
-	int mapHeight = 23;
+	public int mapWidth  = 40;
+	public int mapHeight = 23;
 	int width;
 	int height;
 	public GameObject cube;
@@ -47,14 +47,16 @@ public class MapRepresentation : MonoBehaviour {
 		holeFood = getGrid (2, 14);//
 		wineSpirits = getGrid (13, 14);//
 		stationery = getGrid (5, 14);//
+
+		passengersMove ();
 	}
 
 	private void initializeInterestPlaces(){
-		interestingPlaces[0] = getGrid (0, 9);
-		interestingPlaces[1] = getGrid (53, 0);
-		interestingPlaces[2] = getGrid (50, 39);
-		interestingPlaces[3] = getGrid (15, 18);
-		interestingPlaces[4] = getGrid (42, 16);
+		interestingPlaces[0] = getGrid (7, 0);
+		interestingPlaces[1] = getGrid (0, 3);
+		interestingPlaces[2] = getGrid (0, 12);
+		interestingPlaces[3] = getGrid (0, 14);
+		interestingPlaces[4] = getGrid (8, 22);
 //		interestingPlaces[5] = getGrid (, );
 //		interestingPlaces[6] = getGrid (, );
 //		interestingPlaces[7] = getGrid (3, 17);
@@ -63,8 +65,17 @@ public class MapRepresentation : MonoBehaviour {
 
 	}
 
+
+	private void passengersMove(){
+		GameObject[] passengers = GameObject.FindGameObjectsWithTag ("Passenger");
+		foreach (GameObject p in passengers) {
+			p.GetComponent<Passenger>().setStartPosition(getRandomPlace());
+			p.GetComponent<Passenger>().moveInRoutine();
+		}
+	}
+
 	public Grid getRandomPlace(){
-		return interestingPlaces [UnityEngine.Random.Range (0, 5)];
+		return interestingPlaces [UnityEngine.Random.Range (0, interestingPlaces.Length)];
 	}
 	
 	// Update is called once per frame

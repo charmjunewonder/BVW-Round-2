@@ -229,9 +229,9 @@ public class GameController : MonoBehaviour {
 				case 0:
 						return mapRepresentation.mappleStore;
 				case 1:
-						return mapRepresentation.wineSpirits;
+						return mapRepresentation.mappleStore;
 				case 2:
-						return mapRepresentation.nailSalon;
+						return mapRepresentation.wineSpirits;
 				case 3:
 						return mapRepresentation.stationery;
 				case 4:

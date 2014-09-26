@@ -125,6 +125,7 @@ public class InputController : MonoBehaviour {
 		mouse_prev_pos = new Vector2 (0, 0);
 		all_tracked = false;
 		initwiped = false;
+		//StartCoroutine (recoverFrog ());
 	}
 
 	void InitialWipe()
@@ -302,6 +303,23 @@ public class InputController : MonoBehaviour {
 		
 				}
 		StartCoroutine(recoverMist2 (screenpos,prevpos,wipe_radius,nomist_time,mistup_time,index));
+	}
+
+	IEnumerator recoverFrog(){
+		while(true){
+			Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
+			
+			Color[] pix = tex.GetPixels(0, 0, tex.width, tex.height);
+
+
+			for(int i=0;i<pix.Length;i++){
+				pix[i].a = Mathf.Clamp(pix[i].a + 0.01f, 0.0f, 1.0f);
+
+			}
+			tex.SetPixels (pix);
+			tex.Apply ();
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 
 

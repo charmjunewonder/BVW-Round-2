@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator checkIfSuspendFinishedMoving(){
 		while (true) {
-			if(girls[4].GetComponent<Person>().isFinishedMoving){
+			if(girls[4].GetComponent<Suspect>().isFinishedMoving){
 				//StartCoroutine ("checkStatusOfGame");
 				if(checkIfWin()){
 					Debug.Log ("WIN");
@@ -183,8 +183,8 @@ public class GameController : MonoBehaviour {
 				startPosition = mapRepresentation.getGrid(mapRepresentation.christmasTree.pointOfGrid
 				                                          + new Vector2(Random.Range(-7, 6), Random.Range(-4, 5)));
 			}*/
-			girls[i].GetComponent<Person>().setStartPosition(startPosition);
-			girls[i].GetComponent<Person>().lookAtChristmasTree();
+			girls[i].GetComponent<Suspect>().setStartPosition(startPosition);
+			girls[i].GetComponent<Suspect>().lookAtChristmasTree();
 		}
 
 		yield return new WaitForSeconds(5.0f);
@@ -193,30 +193,30 @@ public class GameController : MonoBehaviour {
 
 		Grid[] g1 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
 			mapRepresentation.wineSpirits, mapRepresentation.nailSalon, mapRepresentation.christmasTree};
-		girls [0].GetComponent<Person> ().destinations = g1;
-		girls [0].GetComponent<Person> ().moveInRoutine ();
+		girls [0].GetComponent<Suspect> ().destinations = g1;
+		girls [0].GetComponent<Suspect> ().moveInRoutine ();
 	
 
 		Grid[] g5 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
 			mapRepresentation.wineSpirits, mapRepresentation.mappleStore, mapRepresentation.stationery};
-		girls [4].GetComponent<Person> ().destinations = g5;
-		girls [4].GetComponent<Person> ().moveInRoutine ();
+		girls [4].GetComponent<Suspect> ().destinations = g5;
+		girls [4].GetComponent<Suspect> ().moveInRoutine ();
 
 		yield return new WaitForSeconds(4.0f);
 
 		Grid[] g2 = {mapRepresentation.christmasTree, mapRepresentation.wineSpirits, 
 			mapRepresentation.mappleStore, mapRepresentation.holeFood, mapRepresentation.holeFood};
-		girls [1].GetComponent<Person> ().destinations = g2;
-		girls [1].GetComponent<Person> ().moveInRoutine ();
+		girls [1].GetComponent<Suspect> ().destinations = g2;
+		girls [1].GetComponent<Suspect> ().moveInRoutine ();
 		
 		Grid[] g3 = {mapRepresentation.christmasTree, mapRepresentation.holeFood, 
 			mapRepresentation.christmasTree, mapRepresentation.mappleStore, mapRepresentation.nailSalon};
-		girls [2].GetComponent<Person> ().destinations = g3;
-		girls [2].GetComponent<Person> ().moveInRoutine ();
+		girls [2].GetComponent<Suspect> ().destinations = g3;
+		girls [2].GetComponent<Suspect> ().moveInRoutine ();
 		
 		Grid[] g4 = {mapRepresentation.christmasTree, mapRepresentation.christmasTree, 
 			mapRepresentation.mappleStore, mapRepresentation.stationery, mapRepresentation.wineSpirits};
-		girls [3].GetComponent<Person> ().destinations = g4;
-		girls [3].GetComponent<Person> ().moveInRoutine ();
+		girls [3].GetComponent<Suspect> ().destinations = g4;
+		girls [3].GetComponent<Suspect> ().moveInRoutine ();
 	}
 }

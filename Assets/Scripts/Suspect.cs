@@ -11,6 +11,7 @@ public class Suspect : Person {
 	public bool isFinishedMoving = false;
 	public bool isCheating;
 	public GameObject phoneGUI;
+	public locationScript locbox;
 	
 	public enum ActionState{
 		Walk,
@@ -79,28 +80,30 @@ public class Suspect : Person {
 		//StartCoroutine ("doAction");
 		if(++nextDestination < destinations.Length){
 			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
-			
-			if(isCheating){
-				switch (nextDestination)
-				{
-				case 2:
-					phoneGUI.GetComponent<phoneDisplay> ().sendText (2);
-					break;
-				}
-			}
+
+//			if(isCheating){
+//				switch (nextDestination)
+//				{
+//				case 2:
+//					phoneGUI.GetComponent<phoneDisplay> ().sendText (2);
+//					break;
+//				}
+//			}
 			yield return new WaitForSeconds(Random.Range(2.0f, 3.0f));
 			moveTo(destinations[nextDestination]);
-			if(isCheating){
-				switch (nextDestination)
-				{
-				case 4:
-					phoneGUI.GetComponent<phoneDisplay> ().sendText (3);
-					yield return new WaitForSeconds(2.0f);
-					
-					phoneGUI.GetComponent<phoneDisplay> ().sendText (4);
-					break;
-				}
-			}
+			if(isCheating)
+				locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination - 1]);
+//			if(isCheating){
+//				switch (nextDestination)
+//				{
+//				case 4:
+//					phoneGUI.GetComponent<phoneDisplay> ().sendText (3);
+//					yield return new WaitForSeconds(2.0f);
+//					
+//					phoneGUI.GetComponent<phoneDisplay> ().sendText (4);
+//					break;
+//				}
+//			}
 			
 		}else{
 			isFinishedMoving = true;

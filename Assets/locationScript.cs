@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class locationScript : MonoBehaviour {
-	Texture2D[] locationtex;
+	public Texture2D[] locationtex;
 
 
 
@@ -10,7 +10,18 @@ public class locationScript : MonoBehaviour {
 	void Start () {
 	
 	}
-	
+
+	public void SendText(int texnum)
+	{
+		StartCoroutine (WaitAndSend(texnum));
+	}
+
+	IEnumerator WaitAndSend(int texnum)
+	{
+		yield return new WaitForSeconds(2.0f);
+		this.renderer.material.mainTexture = locationtex [texnum];
+	}
+
 	// Update is called once per frame
 	void Update () {
 	

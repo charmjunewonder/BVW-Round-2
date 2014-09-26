@@ -25,7 +25,7 @@ public class MapRepresentation : MonoBehaviour {
 	public TextAsset asset; // Assign that variable through inspector
 	private string assetText;
 
-	private int[,] locationMatrix;
+	public int[,] locationMatrix;
 
 
 	// Use this for initialization

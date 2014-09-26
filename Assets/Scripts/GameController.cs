@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 	public bool useMouse;
 	public KinectPointController pointskel;
 	public GameObject window;
+	public locationScript locbox;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
@@ -188,35 +189,56 @@ public class GameController : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds(5.0f);
-		phoneGUI.GetComponent<phoneDisplay> ().sendText (1);
+		//phoneGUI.GetComponent<phoneDisplay> ().sendText (mapRepresentation.locationMatrix [4, 0]);
+		locbox.SendText (0);
+		girls [4].GetComponent<Suspect> ().isCheating = true;
 		yield return new WaitForSeconds(5.0f);
 
-		Grid[] g1 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
-			mapRepresentation.wineSpirits, mapRepresentation.nailSalon, mapRepresentation.christmasTree};
+
+
+
+		Grid[] g1 = {mapRepresentation.christmasTree, getLocation(0,0),getLocation(0,1),getLocation(0,2),getLocation(0,3)};
 		girls [0].GetComponent<Suspect> ().destinations = g1;
 		girls [0].GetComponent<Suspect> ().moveInRoutine ();
 	
 
-		Grid[] g5 = {mapRepresentation.christmasTree, mapRepresentation.mappleStore, 
-			mapRepresentation.wineSpirits, mapRepresentation.mappleStore, mapRepresentation.stationery};
+		Grid[] g5 = {mapRepresentation.christmasTree, getLocation(1,0),getLocation(1,1),getLocation(1,2),getLocation(1,3)};
 		girls [4].GetComponent<Suspect> ().destinations = g5;
 		girls [4].GetComponent<Suspect> ().moveInRoutine ();
 
 		yield return new WaitForSeconds(4.0f);
 
-		Grid[] g2 = {mapRepresentation.christmasTree, mapRepresentation.wineSpirits, 
-			mapRepresentation.mappleStore, mapRepresentation.holeFood, mapRepresentation.holeFood};
+		Grid[] g2 = {mapRepresentation.christmasTree, getLocation(2,0),getLocation(2,1),getLocation(2,2),getLocation(2,3)};
 		girls [1].GetComponent<Suspect> ().destinations = g2;
 		girls [1].GetComponent<Suspect> ().moveInRoutine ();
 		
-		Grid[] g3 = {mapRepresentation.christmasTree, mapRepresentation.holeFood, 
-			mapRepresentation.christmasTree, mapRepresentation.mappleStore, mapRepresentation.nailSalon};
+		Grid[] g3 = {mapRepresentation.christmasTree, getLocation(3,0),getLocation(3,1),getLocation(3,2),getLocation(3,3)};
 		girls [2].GetComponent<Suspect> ().destinations = g3;
 		girls [2].GetComponent<Suspect> ().moveInRoutine ();
 		
-		Grid[] g4 = {mapRepresentation.christmasTree, mapRepresentation.christmasTree, 
-			mapRepresentation.mappleStore, mapRepresentation.stationery, mapRepresentation.wineSpirits};
+		Grid[] g4 = {mapRepresentation.christmasTree, getLocation(4,0),getLocation(4,1),getLocation(4,2),getLocation(4,3)};
 		girls [3].GetComponent<Suspect> ().destinations = g4;
 		girls [3].GetComponent<Suspect> ().moveInRoutine ();
 	}
+
+
+	Grid getLocation(int girl,int locindex)
+	{
+				int loc = mapRepresentation.locationMatrix [girl, locindex];
+				switch (loc) {
+				case 0:
+						return mapRepresentation.mappleStore;
+				case 1:
+						return mapRepresentation.wineSpirits;
+				case 2:
+						return mapRepresentation.nailSalon;
+				case 3:
+						return mapRepresentation.stationery;
+				case 4:
+						return mapRepresentation.holeFood;
+				default:
+						return mapRepresentation.christmasTree;
+				}
+				;
+		}
 }

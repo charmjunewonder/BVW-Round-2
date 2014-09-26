@@ -25,6 +25,9 @@ public class MapRepresentation : MonoBehaviour {
 	public TextAsset asset; // Assign that variable through inspector
 	private string assetText;
 
+	private int[,] locationMatrix;
+
+
 	// Use this for initialization
 	void Start () {
 		assetText = asset.text;
@@ -47,6 +50,8 @@ public class MapRepresentation : MonoBehaviour {
 		holeFood = getGrid (2, 14);//
 		wineSpirits = getGrid (13, 14);//
 		stationery = getGrid (5, 14);//
+
+		generateRandomPlaceMatrix ();
 	}
 
 	private void initializeInterestPlaces(){
@@ -62,6 +67,89 @@ public class MapRepresentation : MonoBehaviour {
 //		interestingPlaces[9] = getGrid (17, 17);
 
 	}
+
+	private int[,] generateRandomPlaceMatrix()
+	{
+		//five places 5 girls;
+		int [,] templocationMatrix = new int[5, 5]{{0,0,0,0,0},
+													{0,1,0,0,0},
+													{0,0,2,0,0},
+													{0,0,0,3,0},
+													{0,1,2,3,4}};
+		int [,] temp2locationMatrix = new int[5, 5];
+
+		int[,] leftoverplaces = new int[4, 4]{ {1,2,3,4},
+												{0,2,3,4},
+												{0,1,3,4},
+												{0,1,2,4}};
+
+		bool[] done = new bool[5]{false,false,false,false,false};
+		int[] randomorder = new int[5];
+		//UnityEngine.Random.seed = Mathf.FloorToInt(Time.time);
+
+		for (int i=0; i<4; i++) 
+		{
+			Array.Clear(done,0,5);
+			for(int j=0;j<4;j++)
+			{
+				int pick = 0;
+				do
+					pick = UnityEngine.Random.Range(0,4);
+				while(done[pick]);
+				Debug.Log (pick);
+				done[pick] = true;
+				templocationMatrix[i,(i+1+j)%5] = leftoverplaces[i,pick];
+			}
+		}
+
+		Array.Clear(done,0,5);
+
+		for(int j=0;j<4;j++)
+		{
+			int pick = 0;
+			do
+				pick = UnityEngine.Random.Range(0,4);
+			while(done[pick]);
+			done[pick]=true;
+			randomorder[j] = pick;
+		}
+		randomorder [4] = 4;
+
+		for (int i=0; i<5; i++)
+						for (int j=0; j<5; j++)
+								temp2locationMatrix [randomorder [i], j] = templocationMatrix [i, j];
+
+		Array.Clear(done,0,5);
+
+		for(int j=0;j<5;j++)
+		{
+			int pick = 0;
+			do
+				pick = UnityEngine.Random.Range(0,5);
+			while(done[pick]);
+			done[pick]=true;
+			randomorder[j] = pick;
+		}
+
+		for (int i=0; i<5; i++)
+			for (int j=0; j<5; j++)
+				templocationMatrix [j,randomorder [i]] = temp2locationMatrix [j,i];
+
+		locationMatrix = templocationMatrix;
+
+		string outt = "";
+		for (int i=0; i<5; i++) {
+						for (int j=0; j<5; j++)
+								outt += locationMatrix [i, j] + " ";
+
+			outt += "\n";
+				}
+				
+		Debug.Log (outt);
+
+		return locationMatrix;
+	}
+
 
 	public Grid getRandomPlace(){
 		return interestingPlaces [UnityEngine.Random.Range (0, 5)];

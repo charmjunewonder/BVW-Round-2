@@ -13,6 +13,7 @@ public class Person : MonoBehaviour {
 	public bool isFinishedMoving = false;
 	public bool isCheating;
 	public GameObject phoneGUI;
+	public bool paused;
 
 	public enum ActionState{
 		Walk,
@@ -23,6 +24,7 @@ public class Person : MonoBehaviour {
 		path = new Stack ();
 
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
+		paused = false;
 	}
 
 	public void setStartPosition(Grid start){
@@ -83,7 +85,8 @@ public class Person : MonoBehaviour {
 			transform.rotation = Quaternion.LookRotation(nextPosition-transform.position);
 			while(Vector3.Distance(transform.position, nextPosition) > 0.5f){
 				//transform.position = Vector3.Lerp (transform.position, nextPosition, 2 * Time.deltaTime);
-				transform.position = Vector3.MoveTowards(transform.position, nextPosition, 2 * Time.deltaTime);
+				if(!paused)
+					transform.position = Vector3.MoveTowards(transform.position, nextPosition, 2 * Time.deltaTime);
 				yield return null;
 			}
 			currentPosition = nextStep;

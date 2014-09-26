@@ -42,4 +42,14 @@ public class lifebarscript : MonoBehaviour {
 	{
 		return alpha;
 	}
+
+	public bool isEmpty()
+	{
+		return alpha > 0.9999f;
+	}
+
+	public bool isFull()
+	{
+		return alpha < (BASE_ALPHA + 0.00001);
+	}
 }

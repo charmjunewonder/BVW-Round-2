@@ -63,7 +63,20 @@ public class SuspicionScript : MonoBehaviour {
 				//lifebar.gameObject.SetActive(false);
 				lifebar.minusLife();
 			}
+
+//			if(lifebar.isFull())
+//			{
+//				Person p = girls[i].GetComponent<Person>();
+//				p.paused = true;
+//			}
+//			else if(lifebar.isEmpty())
+//			{
+//				Person p = girls[i].GetComponent<Person>();
+//				p.paused = false;
+//			}
+
 		}
+
 	}
 
 

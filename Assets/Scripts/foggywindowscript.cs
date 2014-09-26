@@ -10,34 +10,6 @@ public class foggywindowscript : MonoBehaviour {
 	Texture2D tex;
 	Texture2D smalltex;
 
-	void OnPostRender()
-	{
-
-		if (shot)
-			return;
-		tex.ReadPixels (new Rect (0, 0, Screen.width, Screen.height), 0, 0);
-		smalltex = (Texture2D)Instantiate(window.renderer.material.mainTexture);
-		Texture2D frosty = (Texture2D)window.renderer.material.mainTexture;
-
-
-		for (int i=0; i<smalltex.width; i++)
-			for (int j=0; j<smalltex.height; j++) {
-			Color scene = tex.GetPixelBilinear ((float)i / smalltex.width, (float)j / smalltex.height);
-			Color frost = frosty.GetPixelBilinear((float)i / smalltex.width, (float)j / smalltex.height);
-
-
-			smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.75f + scene + Color.cyan * 0.1f);
-						}
-		tex.filterMode = FilterMode.Trilinear;
-
-		smalltex.Apply ();
-		window.renderer.material.mainTexture = smalltex;
-
-		Debug.Log ("hello");
-		shot = true;
-
-
-	}
 	// Use this for initialization
 	void Start () {
 		shot = false;
@@ -50,12 +22,45 @@ public class foggywindowscript : MonoBehaviour {
 		//Camera.main.gameObject.GetComponent<BlurEffect> ().enabled = true;
 		Camera.main.transform.localRotation = Quaternion.Euler(0,0,180);
 		Camera.main.Render ();
+		StartCoroutine (PostRender ());
+
+	}
+
+	IEnumerator PostRender()
+	{
+		yield return new WaitForEndOfFrame ();
+		
+		if (shot)yield break;
+
+		tex.ReadPixels (new Rect (0, 0, Screen.width, Screen.height), 0, 0);
+		smalltex = (Texture2D)Instantiate(window.renderer.material.mainTexture);
+		Texture2D frosty = (Texture2D)window.renderer.material.mainTexture;
+		
+		
+		for (int i=0; i<smalltex.width; i++)
+		for (int j=0; j<smalltex.height; j++) {
+			Color scene = tex.GetPixelBilinear ((float)i / smalltex.width, (float)j / smalltex.height);
+			Color frost = frosty.GetPixelBilinear((float)i / smalltex.width, (float)j / smalltex.height);
+			
+			
+			smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.8f + scene + Color.cyan * 0.1f);
+		}
+		//tex.filterMode = FilterMode.Trilinear;
+		
+		smalltex.Apply ();
+		window.renderer.material.mainTexture = smalltex;
+		
+		Debug.Log ("hello");
+		shot = true;
+		
 		Camera.main.transform.localRotation = Quaternion.identity;
 		for (int i=0; i<girls.Length; i++)
 			setVisible (girls [i], true);
 		setVisible (window, true);
-
+		
+		
 	}
+
 
 	public bool HasShot()
 	{

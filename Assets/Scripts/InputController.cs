@@ -324,7 +324,7 @@ public class InputController : MonoBehaviour {
 
 		
 		for (float  k = 0; k< mistup_time + 0.1f; k+= Time.deltaTime) 
-		{
+		{	                    		       
 			semaphore_num = startindex;
 			for (float a=0; a<diff; a+= wipe_radius) {
 

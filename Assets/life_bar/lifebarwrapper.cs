@@ -36,4 +36,14 @@ public class lifebarwrapper : MonoBehaviour {
 	{
 		lifebar.RemoveLife ();
 	}
+
+	public bool isEmpty()
+	{
+		return lifebar.isEmpty ();
+	}
+
+	public bool isFull()
+	{
+		return lifebar.isFull ();
+	}
 }

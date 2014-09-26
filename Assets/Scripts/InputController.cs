@@ -105,6 +105,7 @@ public class InputController : MonoBehaviour {
 		//Debug.Log (range ());
 		//adjust_skel_to_fit_screen ();
 		resize_window_plane ();
+		setVisible (pointskel.gameObject, false);
 		initialtex = (Texture2D)Instantiate(window.renderer.material.mainTexture);
 		foggytex = (Texture2D)Instantiate(window.renderer.material.mainTexture);
 		window.renderer.material.mainTexture = foggytex;
@@ -565,4 +566,17 @@ public class InputController : MonoBehaviour {
 		return tracked;
 	}
 
+
+	void setVisible(GameObject g, bool visible)
+	{
+		MeshRenderer m = g.GetComponent<MeshRenderer> ();
+		if(m != null) m.enabled = visible;
+		
+		MeshRenderer[] mchild = g.GetComponentsInChildren<MeshRenderer> ();
+		if (mchild != null)
+			for (int i=0; i<mchild.Length; i++)
+				mchild [i].enabled = visible;
+		
+		
+	}
 }

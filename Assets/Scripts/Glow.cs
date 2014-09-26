@@ -13,8 +13,10 @@ public class Glow : MonoBehaviour {
 	
 	void Start() 
 	{
-		pulseSpeed = Random.Range(4.0f, 8.0f);
-		phase = Random.Range(0.0f, Mathf.PI * 2.0f);
+//		pulseSpeed = Random.Range(4.0f, 8.0f);
+//		phase = Random.Range(0.0f, Mathf.PI * 2.0f);
+		pulseSpeed = 5.0f;
+		phase = 3.0f;
 	}
 	
 	void Update() 
@@ -29,6 +31,6 @@ public class Glow : MonoBehaviour {
 		
 		
 		renderer.material.SetColor("_EmissionColor", color);
-		light.color = color;
+		//light.color = color;
 	}
 }

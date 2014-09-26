@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour {
 	public KinectPointController pointskel;
 	public GameObject window;
 	public locationScript locbox;
+	public AudioClip[] audioClips;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
@@ -46,6 +47,29 @@ public class GameController : MonoBehaviour {
 		while (true) {
 			if(girls[4].GetComponent<Suspect>().isFinishedMoving){
 				//StartCoroutine ("checkStatusOfGame");
+				audio.clip = audioClips[0];
+				audio.Play();
+				yield return new WaitForSeconds(3.0f);
+				audio.clip = audioClips[1];
+				audio.Play();
+
+				yield return new WaitForSeconds(1.0f);
+				audio.clip = audioClips[2];
+				audio.Play();
+
+				yield return new WaitForSeconds(1.0f);
+				audio.clip = audioClips[3];
+				audio.Play();
+
+				yield return new WaitForSeconds(1.0f);
+				audio.clip = audioClips[4];
+				audio.Play();
+
+				yield return new WaitForSeconds(1.0f);
+				audio.clip = audioClips[5];
+				audio.Play();
+
+				yield return new WaitForSeconds(1.0f);
 				if(checkIfWin()){
 					Debug.Log ("WIN");
 					Application.LoadLevel("HappyEnding");
@@ -227,13 +251,13 @@ public class GameController : MonoBehaviour {
 				int loc = mapRepresentation.locationMatrix [girl, locindex];
 				switch (loc) {
 				case 0:
-						return mapRepresentation.mappleStore;
+					return mapRepresentation.christmasTree;
 				case 1:
 						return mapRepresentation.mappleStore;
 				case 2:
 						return mapRepresentation.wineSpirits;
 				case 3:
-						return mapRepresentation.stationery;
+						return mapRepresentation.nailSalon;
 				case 4:
 						return mapRepresentation.holeFood;
 				default:

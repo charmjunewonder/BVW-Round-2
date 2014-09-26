@@ -50,7 +50,7 @@ public class MapRepresentation : MonoBehaviour {
 		holeFood = getGrid (2, 14);//
 		wineSpirits = getGrid (13, 14);//
 		stationery = getGrid (5, 14);//
-
+		
 		generateRandomPlaceMatrix ();
 	}
 

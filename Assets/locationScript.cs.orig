@@ -4,10 +4,13 @@ using System.Collections;
 public class locationScript : MonoBehaviour {
 	public Texture2D[] locationtex;
 	public AudioClip[] clips;
-	public GameObject shinningLogo;
-	public TextMesh clues;
+<<<<<<< HEAD
+	public TextMesh cluetext;
 	string[] locationstrings = {"Christmas Tree"," Mapple Store","Wine Store","Hose Tea Cafe", "Whole Foods"};
 
+=======
+	public GameObject shinningLogo;
+>>>>>>> 943186da73da71536ec6ebe59f5a133317724bf5
 
 
 	// Use this for initialization
@@ -78,9 +81,13 @@ public class locationScript : MonoBehaviour {
 		StartCoroutine (FadeIn ());
 		audio.clip = clips [texnum];
 		audio.Play ();
-		shinningLogo.GetComponent<ShinnningLogo> ().shineLogo (texnum);
-		clues.text += " " + locationstrings [texnum] + " ";
+<<<<<<< HEAD
+		yield return new WaitForSeconds(5.0f);
+		StartCoroutine (FadeOut ());
+=======
+		shinningLogo.GetComponent<ShinnningLogo>().shineLogo(texnum);
 
+>>>>>>> 943186da73da71536ec6ebe59f5a133317724bf5
 	}
 
 	// Update is called once per frame

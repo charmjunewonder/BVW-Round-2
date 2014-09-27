@@ -102,7 +102,7 @@ public class Suspect : Person {
 			moveTo(destinations[nextDestination]);
 			if(isCheating){
 				shinningLogo.GetComponent<ShinnningLogo>().shineLogo(mapRepresentation.locationMatrix [4, nextDestination]);
-				locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination - 2]);
+				locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination]);
 			}
 //			if(isCheating){
 //				switch (nextDestination)

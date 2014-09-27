@@ -53,6 +53,7 @@ public class GameController : MonoBehaviour {
 		int[] sortedList = {0, 1, 2, 3, 4};
 		while (true) {
 			bool ifFull = false;
+			int focusCount = 0;
 			for(int n = 0; n < 5; ++n){
 				ifFull |= girls[n].GetComponent<Suspect>().isLifeBarFull();
 			}
@@ -85,18 +86,23 @@ public class GameController : MonoBehaviour {
 					audio.Play();
 					yield return new WaitForSeconds(3.0f);
 					
-					for(int m = 1; i < 5; ++m){
-//						audio.clip = audioClips[m];
-//						audio.Play();	
+					for(int m = 1; m < 5; ++m){
+						audio.clip = audioClips[m];
+						audio.Play();	
+						Debug.Log(girls[sortedList[0]].GetComponent<Suspect>().getLife());
 						if(girls[sortedList[0]].GetComponent<Suspect>().isLifeBarFull()){
 							Debug.Log("stay still");
+							focusCount++;
 						} else{
 							Debug.Log("i change my mind");
-							continue;
+							break;
 						}
 						yield return new WaitForSeconds(1.0f);
 					}
-					
+
+					if(focusCount < 3)
+						continue;
+
 					if(girls[sortedList[0]].GetComponent<Suspect>().isCheating){
 						Debug.Log ("WIN");
 						//Application.LoadLevel("HappyEnding");
@@ -115,7 +121,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	IEnumerator checkIfSuspendFinishedMoving(){
+	/*IEnumerator checkIfSuspendFinishedMoving(){
 		while (true) {
 			if(girls[4].GetComponent<Suspect>().isFinishedMoving){
 				//StartCoroutine ("checkStatusOfGame");
@@ -142,7 +148,7 @@ public class GameController : MonoBehaviour {
 			}
 			yield return new WaitForSeconds(0.5f);
 		}
-	}
+	}*/
 
 	IEnumerator checkIfAllSuspendsFinishedMoving(){
 		while (true) {
@@ -164,7 +170,7 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 	}
 
-	bool checkIfWin()
+	/*bool checkIfWin()
 	{
 		Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
 
@@ -187,9 +193,9 @@ public class GameController : MonoBehaviour {
 	
 
 		return false;
-	}
+	}*/
 
-	IEnumerator checkStatusOfGame(){
+	/*IEnumerator checkStatusOfGame(){
 		bool isWin = false;
 		for(int i = 0; i < 50; ++i){
 			if(useMouse){
@@ -247,7 +253,7 @@ public class GameController : MonoBehaviour {
 		if (!isWin){
 			Debug.Log ("lose");
 		} 
-	}
+	}*/
 	public ArrayList getGirlsFromPosition(Vector2 position){
 		ArrayList girlsBeingWatched = new ArrayList ();
 		for (int i = 0; i < girls.Length; ++i) {
@@ -286,8 +292,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator startGame(){
-		Vector2[] offsets = {new Vector2(-5, 0), new Vector2(-1, -3), new Vector2(3, 0), 
-			new Vector2(-1, 4), new Vector2(-2, 3)};
+		Vector2[] offsets = {new Vector2(-5, 0), new Vector2(-3, -1), new Vector2(3, 0), 
+			new Vector2(-1, -1), new Vector2(5, -1)};
 		List<int> randomNumbers = new List<int>();
 		for(int i = 0; i < 5; ++i){
 			randomNumbers.Add (i);

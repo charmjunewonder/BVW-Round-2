@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 	public GameObject[] girls;
 	public GameObject map;
-	MapRepresentation mapRepresentation;
+	public MapRepresentation mapRepresentation;
 	public GameObject trackingBall;
 	public const int TRACKING_RADIUS = 3;
 	public GameObject phoneGUI;
@@ -20,8 +20,9 @@ public class GameController : MonoBehaviour {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
 
 		StartCoroutine ("startGame");
-		StartCoroutine ("checkIfSuspendFinishedMoving");
-
+		//StartCoroutine ("checkIfSuspendFinishedMoving");
+		StartCoroutine (checkIfAllSuspendsFinishedMoving ());
+		StartCoroutine (checkIfLifeBarIsFull ());
 	}
 
 	// Update is called once per frame
@@ -43,6 +44,77 @@ public class GameController : MonoBehaviour {
 		}*/
 	}
 
+	public void PopSort(int[] list)
+	{
+
+	}
+
+	IEnumerator checkIfLifeBarIsFull(){
+		int[] sortedList = {0, 1, 2, 3, 4};
+		while (true) {
+			bool ifFull = false;
+			for(int n = 0; n < 5; ++n){
+				ifFull |= girls[n].GetComponent<Suspect>().isLifeBarFull();
+			}
+			if(ifFull){
+
+				int i, j, temp;
+				for (i = 0; i < sortedList.Length - 1; i++)
+				{
+					for (j = i + 1; j < sortedList.Length; j++)
+					{
+						if (girls[sortedList[i]].GetComponent<Suspect>().getLife() 
+						    > girls[sortedList[j]].GetComponent<Suspect>().getLife())
+						{
+							temp = sortedList[i];
+							sortedList[i] = sortedList[j];
+							sortedList[j] = temp;
+						}
+					}
+				}
+				for (i = 0; i < sortedList.Length; i++){
+					Debug.Log(sortedList[i] + " " + girls[sortedList[i]].GetComponent<Suspect>().getLife());
+				}
+				bool isBothFull = girls[sortedList[0]].GetComponent<Suspect>().isLifeBarFull()
+					& girls[sortedList[1]].GetComponent<Suspect>().isLifeBarFull();
+				if(isBothFull){
+					Debug.Log("Those girls looks similar. I am confused.");
+
+				} else{
+					audio.clip = audioClips[0];
+					audio.Play();
+					yield return new WaitForSeconds(3.0f);
+					
+					for(int m = 1; i < 5; ++m){
+//						audio.clip = audioClips[m];
+//						audio.Play();	
+						if(girls[sortedList[0]].GetComponent<Suspect>().isLifeBarFull()){
+							Debug.Log("stay still");
+						} else{
+							Debug.Log("i change my mind");
+							continue;
+						}
+						yield return new WaitForSeconds(1.0f);
+					}
+					
+					if(girls[sortedList[0]].GetComponent<Suspect>().isCheating){
+						Debug.Log ("WIN");
+						//Application.LoadLevel("HappyEnding");
+						break;
+					} else{
+						Debug.Log ("Loss");
+						//Application.LoadLevel("BadEnding");
+						break;
+					}
+				}
+
+				//StartCoroutine ("checkStatusOfGame");
+
+			}
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+
 	IEnumerator checkIfSuspendFinishedMoving(){
 		while (true) {
 			if(girls[4].GetComponent<Suspect>().isFinishedMoving){
@@ -50,33 +122,21 @@ public class GameController : MonoBehaviour {
 				audio.clip = audioClips[0];
 				audio.Play();
 				yield return new WaitForSeconds(3.0f);
-				audio.clip = audioClips[1];
-				audio.Play();
 
-				yield return new WaitForSeconds(1.0f);
-				audio.clip = audioClips[2];
-				audio.Play();
+				for(int i = 1; i < 6; ++i){
+					audio.clip = audioClips[i];
+					audio.Play();
+					
+					yield return new WaitForSeconds(1.0f);
+				}
 
-				yield return new WaitForSeconds(1.0f);
-				audio.clip = audioClips[3];
-				audio.Play();
-
-				yield return new WaitForSeconds(1.0f);
-				audio.clip = audioClips[4];
-				audio.Play();
-
-				yield return new WaitForSeconds(1.0f);
-				audio.clip = audioClips[5];
-				audio.Play();
-
-				yield return new WaitForSeconds(1.0f);
 				if(checkIfWin()){
 					Debug.Log ("WIN");
-					Application.LoadLevel("HappyEnding");
+					//Application.LoadLevel("HappyEnding");
 					break;
 				} else{
 					Debug.Log ("Loss");
-					Application.LoadLevel("BadEnding");
+					//Application.LoadLevel("BadEnding");
 					break;
 				}
 			}
@@ -84,6 +144,25 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	IEnumerator checkIfAllSuspendsFinishedMoving(){
+		while (true) {
+			if(girls[4].GetComponent<Suspect>().isFinishedMoving &&
+			   girls[0].GetComponent<Suspect>().isFinishedMoving &&
+			   girls[1].GetComponent<Suspect>().isFinishedMoving &&
+			   girls[2].GetComponent<Suspect>().isFinishedMoving &&
+			   girls[3].GetComponent<Suspect>().isFinishedMoving){
+
+				suspectStartMoving();
+				Debug.Log ("Move Again!!!");
+			}
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+
+	IEnumerator checkStatus(){
+
+		yield return new WaitForSeconds(0.1f);
+	}
 
 	bool checkIfWin()
 	{
@@ -190,6 +269,22 @@ public class GameController : MonoBehaviour {
 		return girlsBeingWatched;
 	}
 
+	void suspectStartMoving(){
+		int[,] locationMatrix = mapRepresentation.generateRandomPlaceMatrix ();
+
+		for(int i = 0; i < 5; ++i){
+			Grid[] routine = new Grid[5];
+			for(int j = 0; j < 5; ++j){
+				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[i, j]);
+			}
+			girls [i].GetComponent<Suspect> ().destinations = routine;
+			girls [i].GetComponent<Suspect> ().nextDestination = 0;
+			girls [i].GetComponent<Suspect> ().isFinishedMoving = false;
+			girls [i].GetComponent<Suspect> ().moveInRoutine ();
+
+		}
+	}
+
 	IEnumerator startGame(){
 		Vector2[] offsets = {new Vector2(-5, 0), new Vector2(-1, -3), new Vector2(3, 0), 
 			new Vector2(-1, 4), new Vector2(-2, 3)};
@@ -211,21 +306,13 @@ public class GameController : MonoBehaviour {
 			girls[i].GetComponent<Suspect>().setStartPosition(startPosition);
 			girls[i].GetComponent<Suspect>().lookAtChristmasTree();
 		}
-		int[,] locationMatrix = mapRepresentation.generateRandomPlaceMatrix ();
 
 		yield return new WaitForSeconds(5.0f);
 		//phoneGUI.GetComponent<phoneDisplay> ().sendText (mapRepresentation.locationMatrix [4, 0]);
 		locbox.SendText (0);
 		yield return new WaitForSeconds(5.0f);
 
-		for(int i = 0; i < 5; ++i){
-			Grid[] routine = new Grid[5];
-			for(int j = 0; j < 5; ++j){
-				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[i, j]);
-			}
-			girls [i].GetComponent<Suspect> ().destinations = routine;
-			girls [i].GetComponent<Suspect> ().moveInRoutine ();
-		}
+		suspectStartMoving ();
 
 
 		/*Grid[] g1 = {mapRepresentation.christmasTree, getLocation(0,0),getLocation(0,1),getLocation(0,2),getLocation(0,3)};

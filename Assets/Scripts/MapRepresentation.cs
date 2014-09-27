@@ -118,7 +118,7 @@ public class MapRepresentation : MonoBehaviour {
 				do
 					pick = UnityEngine.Random.Range(0,4);
 				while(done[pick]);
-				Debug.Log (pick);
+				//Debug.Log (pick);
 				done[pick] = true;
 				templocationMatrix[i,(i+1+j)%5] = leftoverplaces[i,pick];
 			}

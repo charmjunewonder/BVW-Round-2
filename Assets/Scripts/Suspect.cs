@@ -3,23 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Suspect : Person {
-	
+
 
 	public int priority;
 	public Grid[] destinations;
-	int nextDestination = 1;
+	public int nextDestination = 0;
 	public bool isFinishedMoving = false;
 	public bool isCheating;
 	public GameObject phoneGUI;
 	public locationScript locbox;
 	public GameObject shinningLogo;
+	public lifebarwrapper lifebar;
+
 	public enum ActionState{
 		Walk,
 		Wander,
 		Idle
 	};
 
-	
+	public bool isLifeBarFull(){
+		return lifebar.getLife () < 0.1f;
+	}
+
+	public float getLife(){
+		return lifebar.getLife ();
+	}
+
 	public void moveTo(Grid destination){
 		mapRepresentation.findShortestPath (this, destination);
 		StartCoroutine ("move");
@@ -79,7 +88,7 @@ public class Suspect : Person {
 		}
 		//StartCoroutine ("doAction");
 		if(++nextDestination < destinations.Length){
-			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
+			//yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
 
 //			if(isCheating){
 //				switch (nextDestination)
@@ -89,10 +98,10 @@ public class Suspect : Person {
 //					break;
 //				}
 //			}
-			yield return new WaitForSeconds(Random.Range(2.0f, 3.0f));
+			//yield return new WaitForSeconds(Random.Range(2.0f, 3.0f));
 			moveTo(destinations[nextDestination]);
 			if(isCheating){
-				shinningLogo.GetComponent<ShinnningLogo>().shineLogo(mapRepresentation.locationMatrix [4, nextDestination - 2]);
+				shinningLogo.GetComponent<ShinnningLogo>().shineLogo(mapRepresentation.locationMatrix [4, nextDestination]);
 				locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination - 2]);
 			}
 //			if(isCheating){

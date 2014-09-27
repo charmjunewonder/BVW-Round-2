@@ -105,11 +105,12 @@ public class GameController : MonoBehaviour {
 
 					if(girls[sortedList[0]].GetComponent<Suspect>().isCheating){
 						Debug.Log ("WIN");
-						//Application.LoadLevel("HappyEnding");
+						Application.LoadLevel("HappyEnding");
 						break;
 					} else{
 						Debug.Log ("Loss");
-						//Application.LoadLevel("BadEnding");
+						girls[sortedList[0]].GetComponent<Suspect>().isNPC = true;
+						Application.LoadLevel("BadEnding");
 						break;
 					}
 				}

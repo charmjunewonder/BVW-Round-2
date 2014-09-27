@@ -14,6 +14,7 @@ public class Suspect : Person {
 	public locationScript locbox;
 	//public GameObject shinningLogo;
 	public lifebarwrapper lifebar;
+	public bool isNPC;
 
 	public enum ActionState{
 		Walk,

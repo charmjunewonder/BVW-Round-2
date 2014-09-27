@@ -4,7 +4,7 @@ using System.Collections;
 public class locationScript : MonoBehaviour {
 	public Texture2D[] locationtex;
 	public AudioClip[] clips;
-	public TextMesh cluetext;
+	public GameObject shinningLogo;
 	string[] locationstrings = {"Christmas Tree"," Mapple Store","Wine Store","Hose Tea Cafe", "Whole Foods"};
 
 
@@ -77,8 +77,8 @@ public class locationScript : MonoBehaviour {
 		StartCoroutine (FadeIn ());
 		audio.clip = clips [texnum];
 		audio.Play ();
-		yield return new WaitForSeconds(5.0f);
-		StartCoroutine (FadeOut ());
+		shinningLogo.GetComponent<ShinnningLogo>().shineLogo(texnum);
+
 	}
 
 	// Update is called once per frame

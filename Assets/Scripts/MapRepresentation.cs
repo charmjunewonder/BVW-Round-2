@@ -20,7 +20,7 @@ public class MapRepresentation : MonoBehaviour {
 	public Grid nailSalon;
 	public Grid holeFood;
 	public Grid wineSpirits;
-	public Grid stationery;
+	public Grid cafe;
 	private Grid[] interestPlaces;
 
 	public TextAsset asset; // Assign that variable through inspector
@@ -64,15 +64,17 @@ public class MapRepresentation : MonoBehaviour {
 		
 		mappleStore = getGrid (32, 13);//
 		interestPlaces [1] = mappleStore;
-		
-		nailSalon = getGrid (4, 11);//
-		interestPlaces [2] = nailSalon;
+
+		wineSpirits = getGrid (13, 14);//
+		interestPlaces [2] = wineSpirits;
+
+		cafe = getGrid (31, 3);//
+		interestPlaces [3] = cafe;
 		
 		holeFood = getGrid (2, 14);//
-		interestPlaces [3] = holeFood;
+		interestPlaces [4] = holeFood;
 		
-		wineSpirits = getGrid (13, 14);//
-		interestPlaces [4] = wineSpirits;
+
 		
 	}
 

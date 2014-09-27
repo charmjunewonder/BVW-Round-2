@@ -12,8 +12,9 @@ public class Suspect : Person {
 	public bool isCheating;
 	public GameObject phoneGUI;
 	public locationScript locbox;
-	public GameObject shinningLogo;
+	//public GameObject shinningLogo;
 	public lifebarwrapper lifebar;
+	public bool isNPC;
 
 	public enum ActionState{
 		Walk,
@@ -85,10 +86,14 @@ public class Suspect : Person {
 				yield return null;
 			}
 			currentPosition = nextStep;
+	
+		}
+		if(isCheating){
+			//shinningLogo.GetComponent<ShinnningLogo>().shineLogo(mapRepresentation.locationMatrix [4, nextDestination]);
+			locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination]);
 		}
 		//StartCoroutine ("doAction");
 		if(++nextDestination < destinations.Length){
-			//yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
 
 //			if(isCheating){
 //				switch (nextDestination)
@@ -98,13 +103,13 @@ public class Suspect : Person {
 //					break;
 //				}
 //			}
-			//yield return new WaitForSeconds(Random.Range(2.0f, 3.0f));
+			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
+
+
+
 			moveTo(destinations[nextDestination]);
-			if(isCheating){
-				shinningLogo.GetComponent<ShinnningLogo>().shineLogo(mapRepresentation.locationMatrix [4, nextDestination]);
-				locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination]);
-			}
-//			if(isCheating){
+			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
+			//			if(isCheating){
 //				switch (nextDestination)
 //				{
 //				case 4:

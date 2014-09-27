@@ -4,6 +4,9 @@ using System.Collections;
 public class locationScript : MonoBehaviour {
 	public Texture2D[] locationtex;
 	public AudioClip[] clips;
+	public TextMesh cluetext;
+	string[] locationstrings = {"Christmas Tree"," Mapple Store","Wine Store","Hose Tea Cafe", "Whole Foods"};
+
 
 
 	// Use this for initialization
@@ -20,6 +23,10 @@ public class locationScript : MonoBehaviour {
 
 	IEnumerator FadeIn()
 	{
+		Vector3 pos3 = this.transform.localPosition;
+		pos3.z = -8.0f;
+		this.transform.localPosition = pos3;
+
 		for (float f=0; f<1.0f; f+= Time.deltaTime) 
 		{
 			yield return null;
@@ -40,6 +47,10 @@ public class locationScript : MonoBehaviour {
 
 	IEnumerator FadeOut()
 	{
+		Vector3 pos3 = this.transform.localPosition;
+		pos3.z = -4.0f;
+		this.transform.localPosition = pos3;
+
 		for (float f=0; f<1.0f; f+= Time.deltaTime) 
 		{
 			yield return null;

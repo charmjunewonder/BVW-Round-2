@@ -13,7 +13,7 @@ public class MapRepresentation : MonoBehaviour {
 	int height;
 	public GameObject cube;
 	public GameObject ObstacleGroup;
-	Grid[] interestingPlaces;
+	Grid[] passengerPlaces;
 
 	public Grid christmasTree;
 	public Grid mappleStore;
@@ -21,6 +21,7 @@ public class MapRepresentation : MonoBehaviour {
 	public Grid holeFood;
 	public Grid wineSpirits;
 	public Grid stationery;
+	private Grid[] interestPlaces;
 
 	public TextAsset asset; // Assign that variable through inspector
 	private string assetText;
@@ -35,7 +36,10 @@ public class MapRepresentation : MonoBehaviour {
 		height = (int)renderer.bounds.size.z / Grid.GRID_SIZE;
 		grids = new Grid[mapWidth * mapHeight];
 		readMapFromFile ();
-		interestingPlaces = new Grid[5];
+		passengerPlaces = new Grid[5];
+		interestPlaces = new Grid[5];
+
+		initializePassengerPlaces ();
 		initializeInterestPlaces ();
 
 		/*christmasTree = getGrid (33, 18);
@@ -44,22 +48,40 @@ public class MapRepresentation : MonoBehaviour {
 		holeFood = getGrid (13, 25);
 		wineSpirits = getGrid (33, 12);
 		stationery = getGrid (52, 16);*/
-		christmasTree = getGrid (20, 6);//
+		/*christmasTree = getGrid (20, 6);//
 		mappleStore = getGrid (32, 13);//
 		nailSalon = getGrid (30, 18);
 		holeFood = getGrid (2, 14);//
 		wineSpirits = getGrid (13, 14);//
-		stationery = getGrid (5, 14);//
+		stationery = getGrid (5, 14);*/
 		
-		generateRandomPlaceMatrix ();
+		//generateRandomPlaceMatrix ();
 	}
 
 	private void initializeInterestPlaces(){
-		interestingPlaces[0] = getGrid (7, 0);
-		interestingPlaces[1] = getGrid (0, 3);
-		interestingPlaces[2] = getGrid (0, 12);
-		interestingPlaces[3] = getGrid (0, 14);
-		interestingPlaces[4] = getGrid (8, 22);
+		christmasTree = getGrid (20, 4);
+		interestPlaces [0] = christmasTree;
+		
+		mappleStore = getGrid (32, 13);//
+		interestPlaces [1] = mappleStore;
+		
+		nailSalon = getGrid (4, 11);//
+		interestPlaces [2] = nailSalon;
+		
+		holeFood = getGrid (2, 14);//
+		interestPlaces [3] = holeFood;
+		
+		wineSpirits = getGrid (13, 14);//
+		interestPlaces [4] = wineSpirits;
+		
+	}
+
+	private void initializePassengerPlaces(){
+		passengerPlaces[0] = getGrid (7, 0);
+		passengerPlaces[1] = getGrid (0, 3);
+		passengerPlaces[2] = getGrid (0, 12);
+		passengerPlaces[3] = getGrid (0, 14);
+		passengerPlaces[4] = getGrid (8, 22);
 //		interestingPlaces[5] = getGrid (, );
 //		interestingPlaces[6] = getGrid (, );
 //		interestingPlaces[7] = getGrid (3, 17);
@@ -68,7 +90,7 @@ public class MapRepresentation : MonoBehaviour {
 
 	}
 
-	private int[,] generateRandomPlaceMatrix()
+	public int[,] generateRandomPlaceMatrix()
 	{
 		//five places 5 girls;
 		int [,] templocationMatrix = new int[5, 5]{{0,0,0,0,0},
@@ -150,7 +172,9 @@ public class MapRepresentation : MonoBehaviour {
 		return locationMatrix;
 	}
 
-
+	public Grid getInterestPlace(int index){
+		return interestPlaces[index];
+	}
 
 	private void passengersMove(){
 		GameObject[] passengers = GameObject.FindGameObjectsWithTag ("Passenger");
@@ -161,7 +185,7 @@ public class MapRepresentation : MonoBehaviour {
 	}
 
 	public Grid getRandomPlace(){
-		return interestingPlaces [UnityEngine.Random.Range (0, interestingPlaces.Length)];
+		return passengerPlaces [UnityEngine.Random.Range (0, passengerPlaces.Length)];
 	}
 	
 	// Update is called once per frame

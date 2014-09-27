@@ -211,17 +211,24 @@ public class GameController : MonoBehaviour {
 			girls[i].GetComponent<Suspect>().setStartPosition(startPosition);
 			girls[i].GetComponent<Suspect>().lookAtChristmasTree();
 		}
+		int[,] locationMatrix = mapRepresentation.generateRandomPlaceMatrix ();
 
 		yield return new WaitForSeconds(5.0f);
 		//phoneGUI.GetComponent<phoneDisplay> ().sendText (mapRepresentation.locationMatrix [4, 0]);
 		locbox.SendText (0);
-		girls [4].GetComponent<Suspect> ().isCheating = true;
 		yield return new WaitForSeconds(5.0f);
 
+		for(int i = 0; i < 5; ++i){
+			Grid[] routine = new Grid[5];
+			for(int j = 0; j < 5; ++j){
+				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[i, j]);
+			}
+			girls [i].GetComponent<Suspect> ().destinations = routine;
+			girls [i].GetComponent<Suspect> ().moveInRoutine ();
+		}
 
 
-
-		Grid[] g1 = {mapRepresentation.christmasTree, getLocation(0,0),getLocation(0,1),getLocation(0,2),getLocation(0,3)};
+		/*Grid[] g1 = {mapRepresentation.christmasTree, getLocation(0,0),getLocation(0,1),getLocation(0,2),getLocation(0,3)};
 		girls [0].GetComponent<Suspect> ().destinations = g1;
 		girls [0].GetComponent<Suspect> ().moveInRoutine ();
 	
@@ -242,11 +249,11 @@ public class GameController : MonoBehaviour {
 		
 		Grid[] g4 = {mapRepresentation.christmasTree, getLocation(4,0),getLocation(4,1),getLocation(4,2),getLocation(4,3)};
 		girls [3].GetComponent<Suspect> ().destinations = g4;
-		girls [3].GetComponent<Suspect> ().moveInRoutine ();
+		girls [3].GetComponent<Suspect> ().moveInRoutine ();*/
 	}
 
 
-	Grid getLocation(int girl,int locindex)
+	/*Grid getLocation(int girl,int locindex)
 	{
 				int loc = mapRepresentation.locationMatrix [girl, locindex];
 				switch (loc) {
@@ -264,5 +271,5 @@ public class GameController : MonoBehaviour {
 						return mapRepresentation.christmasTree;
 				}
 				;
-		}
+		}*/
 }

@@ -12,7 +12,7 @@ public class Suspect : Person {
 	public bool isCheating;
 	public GameObject phoneGUI;
 	public locationScript locbox;
-	
+	public GameObject shinningLogo;
 	public enum ActionState{
 		Walk,
 		Wander,
@@ -91,8 +91,10 @@ public class Suspect : Person {
 //			}
 			yield return new WaitForSeconds(Random.Range(2.0f, 3.0f));
 			moveTo(destinations[nextDestination]);
-			if(isCheating)
+			if(isCheating){
+				shinningLogo.GetComponent<ShinnningLogo>().shineLogo(mapRepresentation.locationMatrix [4, nextDestination - 2]);
 				locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination - 2]);
+			}
 //			if(isCheating){
 //				switch (nextDestination)
 //				{

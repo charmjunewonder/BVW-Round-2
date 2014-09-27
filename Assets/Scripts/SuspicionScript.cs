@@ -29,7 +29,7 @@ public class SuspicionScript : MonoBehaviour {
 				screenpos.y = Mathf.FloorToInt ((float)screenpos.y * (float)tex.height / (float)Screen.height);
 				Color col = tex.GetPixel (Mathf.FloorToInt (screenpos.x), Mathf.FloorToInt (screenpos.y));
 		
-				if (col.a < 0.01f) {
+				if (col.a < 0.2f) {
 						//Debug.Log ("WIN");
 						return true;
 				}

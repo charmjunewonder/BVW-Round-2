@@ -13,8 +13,8 @@ public class InputController : MonoBehaviour {
 	private Texture2D foggytex;
 	private Texture2D initialtex;
 
-	const int GAME_WIPE_RADIUS = 30;
-	const int LOADING_WIPE_RADIUS = 30;
+	const int GAME_WIPE_RADIUS = 20;
+	const int LOADING_WIPE_RADIUS = 20;
 
 	const float HEIGHT_OFFSET = 20;
 	int WIPE_RADIUS = 15;
@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour {
 	const bool USE_RIGHT = true;
 
 	const float NO_MIST_TIME = 1.0f;
-	const float MIST_UP_TIME = 3.0f;
+	const float MIST_UP_TIME = 5.0f;
 
 	int[,] semaphore;
 	int semaphore_index;
@@ -126,7 +126,7 @@ public class InputController : MonoBehaviour {
 		mouse_prev_pos = new Vector2 (0, 0);
 		all_tracked = false;
 		initwiped = false;
-		//StartCoroutine (recoverFrog ());
+		StartCoroutine (recoverFrog ());
 	}
 
 	void InitialWipe()
@@ -135,7 +135,7 @@ public class InputController : MonoBehaviour {
 			Vector2 sw_pos = new Vector2 ();
 			sw_pos.x = Screen.width - startwipe.x;
 			sw_pos.y = Screen.height - startwipe.y;
-			wipearea (sw_pos, 300, 3.0f, 3.0f,50);
+		wipearea2 (sw_pos,sw_pos+Vector2.right, 150, 3.0f, 3.0f,50);
 	}
 
 	bool check_tracked()
@@ -183,7 +183,7 @@ public class InputController : MonoBehaviour {
 		if (!all_tracked && check_tracked ())
 			all_tracked = true;
 
-		if (foggyscript.HasShot () && !initwiped) 
+		if (Application.loadedLevelName == "GamePlay" && foggyscript.HasShot () && !initwiped) 
 		{
 			initwiped = true;
 			InitialWipe();
@@ -303,7 +303,7 @@ public class InputController : MonoBehaviour {
 					
 		
 				}
-		StartCoroutine(recoverMist2 (screenpos,prevpos,wipe_radius,nomist_time,mistup_time,index));
+		//StartCoroutine(recoverMist2 (screenpos,prevpos,wipe_radius,nomist_time,mistup_time,index));
 	}
 
 	IEnumerator recoverFrog(){
@@ -314,7 +314,7 @@ public class InputController : MonoBehaviour {
 
 
 			for(int i=0;i<pix.Length;i++){
-				pix[i].a = Mathf.Clamp(pix[i].a + 0.01f, 0.0f, 1.0f);
+				pix[i].a = Mathf.Clamp(pix[i].a + 0.1f/MIST_UP_TIME, 0.0f, 1.0f);
 
 			}
 			tex.SetPixels (pix);

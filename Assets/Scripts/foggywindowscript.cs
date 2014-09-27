@@ -49,7 +49,7 @@ public class foggywindowscript : MonoBehaviour {
 		
 		smalltex.Apply ();
 		window.renderer.material.mainTexture = smalltex;
-		
+
 		Debug.Log ("hello");
 		shot = true;
 		

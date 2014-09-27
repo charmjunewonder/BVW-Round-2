@@ -24,6 +24,6 @@ public class StoryScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (!mov.isPlaying)
-						Application.LoadLevel ("GamePlay");
+			Application.LoadLevel ("GamePlay");
 	}
 }

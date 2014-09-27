@@ -43,7 +43,8 @@ public class foggywindowscript : MonoBehaviour {
 			Color frost = frosty.GetPixelBilinear((float)i / smalltex.width, (float)j / smalltex.height);
 			
 			
-			smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.8f + scene + Color.cyan * 0.1f);
+			//smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.8f + scene + Color.cyan * 0.1f);
+			smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.8f + scene);
 		}
 		//tex.filterMode = FilterMode.Trilinear;
 		

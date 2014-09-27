@@ -4,6 +4,7 @@ using System.Collections;
 public class locationScript : MonoBehaviour {
 	public Texture2D[] locationtex;
 	public AudioClip[] clips;
+	public GameObject shinningLogo;
 
 
 	// Use this for initialization
@@ -22,6 +23,8 @@ public class locationScript : MonoBehaviour {
 		this.renderer.material.mainTexture = locationtex [texnum];
 		audio.clip = clips [texnum];
 		audio.Play ();
+		shinningLogo.GetComponent<ShinnningLogo>().shineLogo(texnum);
+
 	}
 
 	// Update is called once per frame

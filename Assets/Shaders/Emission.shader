@@ -29,7 +29,8 @@ SubShader {
 		fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
 		fixed4 c = tex * _DiffuseColor;
 		o.Albedo = c.rgb;
-		o.Emission = _EmissionColor * tex2D(_Illum, IN.uv_Illum).rgb * (exp(_EmissionGain * 10.0f));
+		//o.Emission = _EmissionColor * tex2D(_Illum, IN.uv_Illum).rgb * (exp(_EmissionGain * 10.0f));
+		o.Emission = _EmissionColor * (exp(_EmissionGain * 10.0f));
 		o.Alpha = c.a;
 	}
 	ENDCG

@@ -269,6 +269,19 @@ public class MapRepresentation : MonoBehaviour {
 		if(!isInsideGrids((int)position.x, (int)position.y)) return null;
 		return grids [(int)position.y * mapWidth + (int)position.x];
 	}
+
+	public Grid getRandomNearnby(Grid currentGrid){
+		Grid nearBy = currentGrid;
+		int loopCount = 0;
+		while( (nearBy.isOccupied || nearBy.gridType ==  Grid.GridType.UnaccessableGrid) && loopCount < 20){
+			nearBy = getGrid(currentGrid.pointOfGrid + new Vector2(UnityEngine.Random.Range(0,4), UnityEngine.Random.Range(0,4)));
+			loopCount++;
+		}
+		if(loopCount >= 20)
+			return currentGrid;
+		else
+			return nearBy;
+	}
 	
 	void readMapFromFile(){
 		try

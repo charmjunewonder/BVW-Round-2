@@ -15,6 +15,9 @@ public class Suspect : Person {
 	//public GameObject shinningLogo;
 	public lifebarwrapper lifebar;
 
+	public GameObject cube;
+	public GameObject ObstacleGroup;
+	GameObject cubeA;
 
 	public enum ActionState{
 		Walk,
@@ -67,63 +70,42 @@ public class Suspect : Person {
 	}
 	
 	public void moveInRoutine(){
+		cubeA = Instantiate(cube) as GameObject;
 		moveTo(destinations[nextDestination]);	
 	}
 	
 	IEnumerator move(){
 		while(path.Count > 0){
 			Grid nextStep = (Grid)path.Pop();
-			/*if(!nextStep.isOccupied){
+			if(!nextStep.isOccupied){
 				nextStep.isOccupied = true;
-				transform.position = new Vector3 (nextStep.pointOfGrid.x, 0.5f, nextStep.pointOfGrid.y);
-				currentPosition.isOccupied = false;
-				currentPosition = nextStep;
-				yield return new WaitForSeconds(0.1f);
 			} else{
-				break;
-			}*/
+				nextStep = mapRepresentation.getRandomNearnby(nextStep);
+
+
+			}
+//			cubeA.transform.position = new Vector3(nextStep.pointOfGrid.x, 0.5f, nextStep.pointOfGrid.y);
+//			cubeA.transform.parent = ObstacleGroup.transform;
 			Vector3 nextPosition = new Vector3 (nextStep.pointOfGrid.x, 0.98f, nextStep.pointOfGrid.y);
 			transform.rotation = Quaternion.LookRotation(nextPosition-transform.position);
 			while(Vector3.Distance(transform.position, nextPosition) > 0.5f){
-				//transform.position = Vector3.Lerp (transform.position, nextPosition, 2 * Time.deltaTime);
 				transform.position = Vector3.MoveTowards(transform.position, nextPosition, 2 * Time.deltaTime);
 				yield return null;
 			}
+			currentPosition.isOccupied = false;
 			currentPosition = nextStep;
 	
 		}
 		if(isCheating){
-			//shinningLogo.GetComponent<ShinnningLogo>().shineLogo(mapRepresentation.locationMatrix [4, nextDestination]);
 			locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination]);
 		}
-		//StartCoroutine ("doAction");
 		if(++nextDestination < destinations.Length){
-
-//			if(isCheating){
-//				switch (nextDestination)
-//				{
-//				case 2:
-//					phoneGUI.GetComponent<phoneDisplay> ().sendText (2);
-//					break;
-//				}
-//			}
 			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
 
 
 
 			moveTo(destinations[nextDestination]);
 			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
-			//			if(isCheating){
-//				switch (nextDestination)
-//				{
-//				case 4:
-//					phoneGUI.GetComponent<phoneDisplay> ().sendText (3);
-//					yield return new WaitForSeconds(2.0f);
-//					
-//					phoneGUI.GetComponent<phoneDisplay> ().sendText (4);
-//					break;
-//				}
-//			}
 			
 		}else{
 			isFinishedMoving = true;

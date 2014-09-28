@@ -5,7 +5,9 @@ public class ShinnningLogo : MonoBehaviour {
 
 	public Material[] materials;
 	private float originalEmissionGain;
+	private Color originalColor;
 	public void shineLogo(int index){
+		originalColor = materials [index].GetColor("_EmissionColor");
 		originalEmissionGain = materials [index].GetFloat ("_EmissionGain");
 		materials[index].SetFloat("_EmissionGain", 0.2f);
 		StartCoroutine (flashLight (index));
@@ -27,7 +29,7 @@ public class ShinnningLogo : MonoBehaviour {
 			yield return new WaitForSeconds(0.02f);
 		}
 		materials[index].SetFloat("_EmissionGain", 0.0f);
-		materials [index].SetColor("_EmissionColor", originalColor);
+		materials[index].SetColor("_EmissionColor", originalColor);
 		originalEmissionGain = 0.0f;
 	}
 

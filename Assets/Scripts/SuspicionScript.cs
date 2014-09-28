@@ -52,6 +52,8 @@ public class SuspicionScript : MonoBehaviour {
 
 		for(int i=0;i<girls.Length;i++)
 		{
+			if(!girls[i].activeSelf)
+				continue;
 			lifebarwrapper lifebar = girls[i].GetComponentInChildren<lifebarwrapper>();
 			if(checkIfSeen(i))
 			{

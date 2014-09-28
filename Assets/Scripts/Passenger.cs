@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Passenger : Person {
-	
 
 
-	
 	public void moveTo(Grid destination){
 		mapRepresentation.findShortestPath (this, destination);
 		StartCoroutine ("move");
 	}
 	
+	public void initialize(){
+		path = new Stack ();
+	}
+
 	public void moveInRoutine(){
 		moveTo(mapRepresentation.getRandomPlace());	
 	}

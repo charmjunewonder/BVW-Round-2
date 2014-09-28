@@ -14,13 +14,17 @@ public class Suspect : Person {
 	public locationScript locbox;
 	//public GameObject shinningLogo;
 	public lifebarwrapper lifebar;
-	public bool isNPC;
+
 
 	public enum ActionState{
 		Walk,
 		Wander,
 		Idle
 	};
+
+	public void resetLife(){
+		lifebar.resetLife();
+	}
 
 	public bool isLifeBarFull(){
 		return lifebar.getLife () < 0.1f;
@@ -34,7 +38,7 @@ public class Suspect : Person {
 		mapRepresentation.findShortestPath (this, destination);
 		StartCoroutine ("move");
 	}
-	
+
 	public void activate(){
 		StartCoroutine ("doAction");
 	}

@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
 	public GameObject window;
 	public locationScript locbox;
 	public AudioClip[] audioClips;
+	public GameObject passenger;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
@@ -42,11 +43,6 @@ public class GameController : MonoBehaviour {
 			}
 			girlsBeingWatched.Clear();
 		}*/
-	}
-
-	public void PopSort(int[] list)
-	{
-
 	}
 
 	IEnumerator checkIfLifeBarIsFull(){
@@ -109,9 +105,15 @@ public class GameController : MonoBehaviour {
 						break;
 					} else{
 						Debug.Log ("Loss");
-						girls[sortedList[0]].GetComponent<Suspect>().isNPC = true;
-						Application.LoadLevel("BadEnding");
-						break;
+						GameObject fakePassenger = Instantiate(passenger) as GameObject;
+						fakePassenger.GetComponent<Passenger>().initialize();
+						fakePassenger.GetComponent<Passenger>().setStartPosition(girls[sortedList[0]].GetComponent<Suspect>().currentPosition);
+						fakePassenger.GetComponent<Passenger>().moveInRoutine();
+						girls[sortedList[0]].SetActiveRecursively(false);
+						girls[sortedList[0]].GetComponent<Suspect>().resetLife();
+						girls[sortedList[0]].GetComponent<Suspect>().isFinishedMoving = true;
+						//Application.LoadLevel("BadEnding");
+						//break;
 					}
 				}
 
@@ -280,6 +282,8 @@ public class GameController : MonoBehaviour {
 		int[,] locationMatrix = mapRepresentation.generateRandomPlaceMatrix ();
 
 		for(int i = 0; i < 5; ++i){
+			if(!girls [i].activeSelf)
+				continue;
 			Grid[] routine = new Grid[5];
 			for(int j = 0; j < 5; ++j){
 				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[i, j]);

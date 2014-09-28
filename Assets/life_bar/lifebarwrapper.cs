@@ -22,6 +22,10 @@ public class lifebarwrapper : MonoBehaviour {
 		reset ();
 	}
 
+	public void resetLife(){
+		lifebar.reset ();
+	}
+
 	public float getLife()
 	{
 		return lifebar.life ();

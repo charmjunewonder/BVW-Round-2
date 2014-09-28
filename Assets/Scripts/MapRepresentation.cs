@@ -41,7 +41,7 @@ public class MapRepresentation : MonoBehaviour {
 
 		initializePassengerPlaces ();
 		initializeInterestPlaces ();
-
+		passengersMove ();
 		/*christmasTree = getGrid (33, 18);
 		mappleStore = getGrid (6, 14);
 		nailSalon = getGrid (36, 32);

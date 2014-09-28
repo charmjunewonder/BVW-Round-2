@@ -50,7 +50,8 @@
 					if(cutoutcol.r > _CutOutThres && cutoutcol.g > _CutOutThres && cutoutcol.b > _CutOutThres)
 					{
 						//float c = (cutoutcol.r + cutoutcol.g + cutoutcol.b)/3.0;
-						discard;
+						col.a = min(col.a,0.3);
+						//discard;
 					}
 					return col;
 					

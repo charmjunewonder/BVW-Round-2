@@ -8,10 +8,31 @@ public class lifebarscript : MonoBehaviour {
 	float alpha;
 	// Use this for initialization
 	void Start () {
-		reset ();
+
+		alpha = 1.0f;
+		gameObject.renderer.material.SetFloat ("_Cutoff", alpha);
+		StartCoroutine (delayReset ());
 		//RemoveLife ();
 	}
-	
+
+	IEnumerator delayReset()
+	{
+		for (float i=1.0f; i>BASE_ALPHA; i-=Time.deltaTime) 
+		{
+			alpha = i;
+			gameObject.renderer.material.SetFloat ("_Cutoff", alpha);
+			yield return null;
+		}
+		yield return new WaitForSeconds (3.0f);
+		for (float i=BASE_ALPHA; i<1.0; i+=Time.deltaTime) 
+		{
+			alpha = i;
+			gameObject.renderer.material.SetFloat ("_Cutoff", alpha);
+			yield return null;
+		}
+		reset ();
+	}
+
 	// Update is called once per frame
 	void Update () {
 

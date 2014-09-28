@@ -85,7 +85,9 @@ public class GameController : MonoBehaviour {
 					for(int m = 1; m < 5; ++m){
 						audio.clip = audioClips[m];
 						audio.Play();	
-						Debug.Log(girls[sortedList[0]].GetComponent<Suspect>().getLife());
+						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOn ();
+
+						Debug.Log("Life: " + girls[sortedList[0]].GetComponent<Suspect>().getLife());
 						if(girls[sortedList[0]].GetComponent<Suspect>().isLifeBarFull()){
 							Debug.Log("stay still");
 							focusCount++;
@@ -96,9 +98,11 @@ public class GameController : MonoBehaviour {
 						yield return new WaitForSeconds(1.0f);
 					}
 
-					if(focusCount < 3)
-						continue;
+					if(focusCount < 3){
+						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOff ();
 
+						continue;
+					}
 					if(girls[sortedList[0]].GetComponent<Suspect>().isCheating){
 						Debug.Log ("WIN");
 						Application.LoadLevel("HappyEnding");
@@ -109,9 +113,11 @@ public class GameController : MonoBehaviour {
 						fakePassenger.GetComponent<Passenger>().initialize();
 						fakePassenger.GetComponent<Passenger>().setStartPosition(girls[sortedList[0]].GetComponent<Suspect>().currentPosition);
 						fakePassenger.GetComponent<Passenger>().moveInRoutine();
-						girls[sortedList[0]].SetActiveRecursively(false);
 						girls[sortedList[0]].GetComponent<Suspect>().resetLife();
 						girls[sortedList[0]].GetComponent<Suspect>().isFinishedMoving = true;
+						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOff ();
+						girls[sortedList[0]].SetActiveRecursively(false);
+
 						//Application.LoadLevel("BadEnding");
 						//break;
 					}

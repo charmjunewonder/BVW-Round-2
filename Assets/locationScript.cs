@@ -6,14 +6,25 @@ public class locationScript : MonoBehaviour {
 	public AudioClip[] clips;
 	public GameObject shinningLogo;
 	public TextMesh clues;
-	string[] locationstrings = {"Christmas Tree"," Mapple Store","Wine Store","Hose Tea Cafe", "Whole Foods"};
-
+	string[] locationstrings = {"Christmas Tree","Mapple Store","Wine Store","Hose Tea Cafe", "Whole Foods"};
+	float xaspect;
+	float hidepos;
+	float showpos;
 
 
 	// Use this for initialization
 	void Start () {
 		Vector3 pos = this.transform.localPosition;
-		pos.z = -8.0f;
+
+		float aspect = (float)Screen.width / (float)Screen.height;
+
+
+		hidepos =  4.0f - (2.0f - 2.0f/aspect)/2.0f + 2.0f;
+		showpos = 4.0f + (2.0f - 2.0f/aspect)/2.0f;
+		xaspect = hidepos - showpos;
+		pos.x = hidepos;
+
+		this.transform.localScale = new Vector3 (2.0f / aspect, 2.0f, 2.0f);
 		this.transform.localPosition = pos;
 	}
 
@@ -25,14 +36,14 @@ public class locationScript : MonoBehaviour {
 	IEnumerator FadeIn()
 	{
 		Vector3 pos3 = this.transform.localPosition;
-		pos3.z = -8.0f;
+		pos3.x = hidepos;
 		this.transform.localPosition = pos3;
 
 		for (float f=0; f<1.0f; f+= Time.deltaTime) 
 		{
 			yield return null;
 			Vector3 pos = this.transform.localPosition;
-			pos.z += 4.0f * Time.deltaTime;
+			pos.x -= xaspect * Time.deltaTime;
 			this.transform.localPosition = pos;
 			//Color c = this.renderer.material.color;
 			//c.a = Mathf.Clamp01(f);
@@ -42,21 +53,23 @@ public class locationScript : MonoBehaviour {
 		}
 
 		Vector3 pos2 = this.transform.localPosition;
-		pos2.z = -4.0f;
+		pos2.x = showpos;
 		this.transform.localPosition = pos2;
+		yield return new WaitForSeconds(3.0f);
+		StartCoroutine (FadeOut ());
 	}
 
 	IEnumerator FadeOut()
 	{
 		Vector3 pos3 = this.transform.localPosition;
-		pos3.z = -4.0f;
+		pos3.x = showpos;
 		this.transform.localPosition = pos3;
 
 		for (float f=0; f<1.0f; f+= Time.deltaTime) 
 		{
 			yield return null;
 			Vector3 pos = this.transform.localPosition;
-			pos.z -= 4.0f * Time.deltaTime;
+			pos.x += xaspect * Time.deltaTime;
 			this.transform.localPosition = pos;
 			//Color c = this.renderer.material.color;
 			//c.a = Mathf.Clamp01(f);
@@ -66,7 +79,7 @@ public class locationScript : MonoBehaviour {
 		}
 
 		Vector3 pos2 = this.transform.localPosition;
-		pos2.z = -8.0f;
+		pos2.x = hidepos;
 		this.transform.localPosition = pos2;
 	}
 
@@ -79,7 +92,7 @@ public class locationScript : MonoBehaviour {
 		audio.clip = clips [texnum];
 		audio.Play ();
 		shinningLogo.GetComponent<ShinnningLogo> ().shineLogo (texnum);
-		clues.text += " " + locationstrings [texnum] + " ";
+		clues.text += "\n" + locationstrings [texnum];
 
 	}
 

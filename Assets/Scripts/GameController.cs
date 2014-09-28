@@ -78,14 +78,15 @@ public class GameController : MonoBehaviour {
 					Debug.Log("Those girls looks similar. I am confused.");
 
 				} else{
-					audio.clip = audioClips[0];
+					girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOn ();
+
+					audio.clip = audioClips[1];
 					audio.Play();
 					yield return new WaitForSeconds(3.0f);
 					
-					for(int m = 1; m < 5; ++m){
-						audio.clip = audioClips[m];
+					for(int m = 0; m < 4; ++m){
+						audio.clip = audioClips[m+2];
 						audio.Play();	
-						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOn ();
 
 						Debug.Log("Life: " + girls[sortedList[0]].GetComponent<Suspect>().getLife());
 						if(girls[sortedList[0]].GetComponent<Suspect>().isLifeBarFull()){
@@ -93,18 +94,22 @@ public class GameController : MonoBehaviour {
 							focusCount++;
 						} else{
 							Debug.Log("i change my mind");
+							audio.clip = audioClips[7];
+							audio.Play();	
 							break;
 						}
 						yield return new WaitForSeconds(1.0f);
 					}
 
-					if(focusCount < 3){
+					if(focusCount < 4){
 						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOff ();
 
 						continue;
 					}
 					if(girls[sortedList[0]].GetComponent<Suspect>().isCheating){
 						Debug.Log ("WIN");
+						audio.clip = audioClips[6];
+						audio.Play();	
 						Application.LoadLevel("HappyEnding");
 						break;
 					} else{
@@ -303,6 +308,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator startGame(){
+
 		Vector2[] offsets = {new Vector2(-5, 0), new Vector2(-3, -1), new Vector2(3, 0), 
 			new Vector2(-1, -1), new Vector2(5, -1)};
 		List<int> randomNumbers = new List<int>();
@@ -324,7 +330,12 @@ public class GameController : MonoBehaviour {
 			girls[i].GetComponent<Suspect>().lookAtChristmasTree();
 		}
 
+
+		yield return new WaitForSeconds(3.0f);
+		audio.clip = audioClips[0];
+		audio.Play();
 		yield return new WaitForSeconds(5.0f);
+
 		//phoneGUI.GetComponent<phoneDisplay> ().sendText (mapRepresentation.locationMatrix [4, 0]);
 		locbox.SendText (0);
 		yield return new WaitForSeconds(5.0f);

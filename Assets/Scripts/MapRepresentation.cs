@@ -36,8 +36,8 @@ public class MapRepresentation : MonoBehaviour {
 		height = (int)renderer.bounds.size.z / Grid.GRID_SIZE;
 		grids = new Grid[mapWidth * mapHeight];
 		readMapFromFile ();
-		passengerPlaces = new Grid[5];
-		interestPlaces = new Grid[5];
+		passengerPlaces = new Grid[10];
+		interestPlaces = new Grid[7];
 
 		initializePassengerPlaces ();
 		initializeInterestPlaces ();
@@ -74,8 +74,8 @@ public class MapRepresentation : MonoBehaviour {
 		holeFood = getGrid (2, 14);//
 		interestPlaces [4] = holeFood;
 		
-
-		
+		interestPlaces [5] = getGrid (20, 15);//church
+		interestPlaces [6] = getGrid (10, 4);//nail
 	}
 
 	private void initializePassengerPlaces(){
@@ -84,11 +84,11 @@ public class MapRepresentation : MonoBehaviour {
 		passengerPlaces[2] = getGrid (0, 12);
 		passengerPlaces[3] = getGrid (0, 14);
 		passengerPlaces[4] = getGrid (8, 22);
-//		interestingPlaces[5] = getGrid (, );
-//		interestingPlaces[6] = getGrid (, );
-//		interestingPlaces[7] = getGrid (3, 17);
-//		interestingPlaces[8] = getGrid (14, 18);
-//		interestingPlaces[9] = getGrid (17, 17);
+		passengerPlaces[5] = getGrid (17, 22);
+		passengerPlaces[6] = getGrid (33, 22);
+		passengerPlaces[7] = getGrid (39, 13);
+		passengerPlaces[8] = getGrid (39, 4);
+		passengerPlaces[9] = getGrid (25, 0);
 
 	}
 

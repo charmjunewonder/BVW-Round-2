@@ -12,6 +12,8 @@ public class lifebarscript : MonoBehaviour {
 		alpha = 1.0f;
 		gameObject.renderer.material.SetFloat ("_Cutoff", alpha);
 		StartCoroutine (delayReset ());
+		reset ();
+
 		//RemoveLife ();
 	}
 

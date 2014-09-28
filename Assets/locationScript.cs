@@ -19,8 +19,8 @@ public class locationScript : MonoBehaviour {
 		float aspect = (float)Screen.width / (float)Screen.height;
 
 
-		hidepos =  4.0f - (2.0f - 2.0f/aspect)/2.0f + 2.0f;
-		showpos = 4.0f + (2.0f - 2.0f/aspect)/2.0f;
+		hidepos =  4.0f - (2.0f - 2.0f/aspect)/2.0f + 2.0f - 0.2f;
+		showpos = 4.0f + (2.0f - 2.0f/aspect)/2.0f - 0.3f;
 		xaspect = hidepos - showpos;
 		pos.x = hidepos;
 

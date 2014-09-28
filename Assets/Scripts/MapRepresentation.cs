@@ -94,76 +94,83 @@ public class MapRepresentation : MonoBehaviour {
 
 	public int[,] generateRandomPlaceMatrix()
 	{
+		const int no_place = 7;
 		//five places 5 girls;
-		int [,] templocationMatrix = new int[5, 5]{{0,0,0,0,0},
-													{0,1,0,0,0},
-													{0,0,2,0,0},
-													{0,0,0,3,0},
-													{0,1,2,3,4}};
-		int [,] temp2locationMatrix = new int[5, 5];
+		int [,] templocationMatrix = new int[no_place, no_place]
+													{{0,0,0,0,0,0,0},
+													{0,1,0,0,0,0,0},
+													{0,0,2,0,0,0,0},
+													{0,0,0,3,0,0,0},
+													{0,0,0,0,4,0,0},
+													{0,0,0,0,0,5,0},
+													{0,1,2,3,4,5,6}};
+		int [,] temp2locationMatrix = new int[no_place, no_place];
 
-		int[,] leftoverplaces = new int[4, 4]{ {1,2,3,4},
-												{0,2,3,4},
-												{0,1,3,4},
-												{0,1,2,4}};
+		int[,] leftoverplaces = new int[no_place-1, no_place-1]
+												{{1,2,3,4,5,6},
+												{0,2,3,4,5,6},
+												{0,1,3,4,5,6},
+												{0,1,2,4,5,6},
+												{0,1,2,3,5,6},
+												{0,1,2,3,4,6}};
 
-		bool[] done = new bool[5]{false,false,false,false,false};
-		int[] randomorder = new int[5];
+		bool[] done = new bool[no_place]{false,false,false,false,false,false,false};
+		int[] randomorder = new int[no_place];
 		//UnityEngine.Random.seed = Mathf.FloorToInt(Time.time);
 
-		for (int i=0; i<4; i++) 
+		for (int i=0; i<no_place-1; i++) 
 		{
-			Array.Clear(done,0,5);
-			for(int j=0;j<4;j++)
+			Array.Clear(done,0,no_place);
+			for(int j=0;j<no_place-1;j++)
 			{
 				int pick = 0;
 				do
-					pick = UnityEngine.Random.Range(0,4);
+					pick = UnityEngine.Random.Range(0,no_place-1);
 				while(done[pick]);
 				//Debug.Log (pick);
 				done[pick] = true;
-				templocationMatrix[i,(i+1+j)%5] = leftoverplaces[i,pick];
+				templocationMatrix[i,(i+1+j)%no_place] = leftoverplaces[i,pick];
 			}
 		}
 
-		Array.Clear(done,0,5);
+		Array.Clear(done,0,no_place);
 
-		for(int j=0;j<4;j++)
+		for(int j=0;j<no_place-1;j++)
 		{
 			int pick = 0;
 			do
-				pick = UnityEngine.Random.Range(0,4);
+				pick = UnityEngine.Random.Range(0,no_place-1);
 			while(done[pick]);
 			done[pick]=true;
 			randomorder[j] = pick;
 		}
-		randomorder [4] = 4;
+		randomorder [no_place-1] = no_place-1;
 
-		for (int i=0; i<5; i++)
-						for (int j=0; j<5; j++)
+		for (int i=0; i<no_place; i++)
+			for (int j=0; j<no_place; j++)
 								temp2locationMatrix [randomorder [i], j] = templocationMatrix [i, j];
 
-		Array.Clear(done,0,5);
+		Array.Clear(done,0,no_place);
 
-		for(int j=0;j<5;j++)
+		for(int j=0;j<no_place;j++)
 		{
 			int pick = 0;
 			do
-				pick = UnityEngine.Random.Range(0,5);
+				pick = UnityEngine.Random.Range(0,no_place);
 			while(done[pick]);
 			done[pick]=true;
 			randomorder[j] = pick;
 		}
 
-		for (int i=0; i<5; i++)
-			for (int j=0; j<5; j++)
+		for (int i=0; i<no_place; i++)
+			for (int j=0; j<no_place; j++)
 				templocationMatrix [j,randomorder [i]] = temp2locationMatrix [j,i];
 
 		locationMatrix = templocationMatrix;
 
 		string outt = "";
-		for (int i=0; i<5; i++) {
-						for (int j=0; j<5; j++)
+		for (int i=0; i<no_place; i++) {
+			for (int j=0; j<no_place; j++)
 								outt += locationMatrix [i, j] + " ";
 
 			outt += "\n";

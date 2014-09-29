@@ -86,7 +86,10 @@ public class locationScript : MonoBehaviour {
 
 	IEnumerator WaitAndSend(int texnum)
 	{
-		yield return new WaitForSeconds(2.0f);
+		yield return new WaitForSeconds(1.0f);
+		audio.clip = clips [7];
+		audio.Play ();
+		yield return new WaitForSeconds(1.0f);
 		this.renderer.material.mainTexture = locationtex [texnum];
 		StartCoroutine (FadeIn ());
 		audio.clip = clips [texnum];

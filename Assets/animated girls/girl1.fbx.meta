@@ -1,0 +1,682 @@
+fileFormatVersion: 2
+guid: 5339356360551494e8e5b30203ea8aa7
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: head
+    100004: L_Arm
+    100006: L_Foot
+    100008: L_hand
+    100010: L_Heap
+    100012: L_Shoulder
+    100014: Left_Knee
+    100016: Left_Knee 1
+    100018: neck
+    100020: pCube1
+    100022: polySurface1
+    100024: polySurface2
+    100026: polySurface3
+    100028: polySurface4
+    100030: polySurface5
+    100032: R_Arm
+    100034: R_Foot
+    100036: R_hand
+    100038: R_Heap
+    100040: R_Shoulder
+    100042: Root
+    100044: Spine
+    100046: Spine2
+    400000: //RootNode
+    400002: head
+    400004: L_Arm
+    400006: L_Foot
+    400008: L_hand
+    400010: L_Heap
+    400012: L_Shoulder
+    400014: Left_Knee
+    400016: Left_Knee 1
+    400018: neck
+    400020: pCube1
+    400022: polySurface1
+    400024: polySurface2
+    400026: polySurface3
+    400028: polySurface4
+    400030: polySurface5
+    400032: R_Arm
+    400034: R_Foot
+    400036: R_hand
+    400038: R_Heap
+    400040: R_Shoulder
+    400042: Root
+    400044: Spine
+    400046: Spine2
+    2300000: pCube1
+    2300002: polySurface1
+    2300004: polySurface2
+    2300006: polySurface3
+    2300008: polySurface4
+    2300010: polySurface5
+    3300000: pCube1
+    3300002: polySurface1
+    3300004: polySurface2
+    3300006: polySurface3
+    3300008: polySurface4
+    3300010: polySurface5
+    4300000: polySurface2
+    4300002: pCube1
+    4300004: polySurface4
+    4300006: polySurface3
+    4300008: polySurface5
+    4300010: polySurface1
+    7400000: walk
+    7400002: idel
+    7400004: startWalk
+    7400006: stopWalk
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idel
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 10
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Heap
+        weight: 1
+      - path: Root/L_Heap/Left_Knee
+        weight: 1
+      - path: Root/L_Heap/Left_Knee/L_Foot
+        weight: 1
+      - path: Root/L_Heap/polySurface3
+        weight: 0
+      - path: Root/polySurface1
+        weight: 0
+      - path: Root/R_Heap
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1/R_Foot
+        weight: 1
+      - path: Root/R_Heap/polySurface5
+        weight: 0
+      - path: Root/Spine
+        weight: 1
+      - path: Root/Spine/Spine2
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm/L_hand
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/polySurface2
+        weight: 0
+      - path: Root/Spine/Spine2/neck
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head/pCube1
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/polySurface4
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm/R_hand
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: startWalk
+      takeName: Take 001
+      firstFrame: 10
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Heap
+        weight: 1
+      - path: Root/L_Heap/Left_Knee
+        weight: 1
+      - path: Root/L_Heap/Left_Knee/L_Foot
+        weight: 1
+      - path: Root/L_Heap/polySurface3
+        weight: 0
+      - path: Root/polySurface1
+        weight: 0
+      - path: Root/R_Heap
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1/R_Foot
+        weight: 1
+      - path: Root/R_Heap/polySurface5
+        weight: 0
+      - path: Root/Spine
+        weight: 1
+      - path: Root/Spine/Spine2
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm/L_hand
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/polySurface2
+        weight: 0
+      - path: Root/Spine/Spine2/neck
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head/pCube1
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/polySurface4
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm/R_hand
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: walk
+      takeName: Take 001
+      firstFrame: 14
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Heap
+        weight: 1
+      - path: Root/L_Heap/Left_Knee
+        weight: 1
+      - path: Root/L_Heap/Left_Knee/L_Foot
+        weight: 1
+      - path: Root/L_Heap/polySurface3
+        weight: 0
+      - path: Root/polySurface1
+        weight: 0
+      - path: Root/R_Heap
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1/R_Foot
+        weight: 1
+      - path: Root/R_Heap/polySurface5
+        weight: 0
+      - path: Root/Spine
+        weight: 1
+      - path: Root/Spine/Spine2
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm/L_hand
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/polySurface2
+        weight: 0
+      - path: Root/Spine/Spine2/neck
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head/pCube1
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/polySurface4
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm/R_hand
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: stopWalk
+      takeName: Take 001
+      firstFrame: 24
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Heap
+        weight: 1
+      - path: Root/L_Heap/Left_Knee
+        weight: 1
+      - path: Root/L_Heap/Left_Knee/L_Foot
+        weight: 1
+      - path: Root/L_Heap/polySurface3
+        weight: 0
+      - path: Root/polySurface1
+        weight: 0
+      - path: Root/R_Heap
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1
+        weight: 1
+      - path: Root/R_Heap/Left_Knee 1/R_Foot
+        weight: 1
+      - path: Root/R_Heap/polySurface5
+        weight: 0
+      - path: Root/Spine
+        weight: 1
+      - path: Root/Spine/Spine2
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/L_Arm/L_hand
+        weight: 1
+      - path: Root/Spine/Spine2/L_Shoulder/polySurface2
+        weight: 0
+      - path: Root/Spine/Spine2/neck
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head
+        weight: 1
+      - path: Root/Spine/Spine2/neck/head/pCube1
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/polySurface4
+        weight: 0
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm
+        weight: 1
+      - path: Root/Spine/Spine2/R_Shoulder/R_Arm/R_hand
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: Root
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_Heap
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: R_Heap
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Knee
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Left_Knee 1
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_Foot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: R_Foot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Spine2
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_Shoulder
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: R_Shoulder
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_Arm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: R_Arm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: L_hand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: R_hand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: girl1(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Root
+      position: {x: 0, y: .0163115263, z: 0}
+      rotation: {x: 0, y: -0, z: -.701953828, w: .712222457}
+      scale: {x: 1.00000012, y: .99999994, z: 1}
+      transformModified: 1
+    - name: L_Heap
+      position: {x: .0043819556, y: -.00193199096, z: 0}
+      rotation: {x: .00450556912, y: -.707092464, z: .707092464, w: -.00450556912}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Left_Knee
+      position: {x: -.00501744868, y: -4.35194301e-21, z: 5.14629053e-18}
+      rotation: {x: 0, y: .00123882887, z: -0, w: .999999225}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_Foot
+      position: {x: -.00551883737, y: -2.03755198e-13, z: 1.96139465e-16}
+      rotation: {x: .00362961204, y: -.707097471, z: .707097471, w: .00362961204}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface3
+      position: {x: .00764693366, y: -7.5712741e-19, z: -.00229311315}
+      rotation: {x: -.49313724, y: -.506769836, z: .506769836, w: -.49313724}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface1
+      position: {x: -.00329357921, y: .000263487658, z: 0}
+      rotation: {x: 0, y: 0, z: .701953828, w: .712222457}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_Heap
+      position: {x: .00443621306, y: .00180390803, z: 0}
+      rotation: {x: -.0147740366, y: -.706952453, z: .706952453, w: .0147740366}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Left_Knee 1
+      position: {x: -.00501744635, y: 1.7407764e-20, z: 5.14418991e-18}
+      rotation: {x: 0, y: -.00123891188, z: -0, w: .999999225}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_Foot
+      position: {x: -.00551882572, y: 6.74946344e-19, z: -1.40181465e-16}
+      rotation: {x: -.707097471, y: -.00363035849, z: -.00363035849, w: .707097471}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface5
+      position: {x: .00765868789, y: 3.86878447e-19, z: .00186201255}
+      rotation: {x: .506770372, y: .493136674, z: -.493136674, w: .506770372}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Spine
+      position: {x: -.0039710314, y: 3.08521303e-05, z: 0}
+      rotation: {x: .707099676, y: -.00317328307, z: -.00317328307, w: .707099676}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Spine2
+      position: {x: -.00556282373, y: -3.14889544e-34, z: 2.83627287e-18}
+      rotation: {x: -.648845613, y: 3.97303319e-17, z: .760920107, w: 4.659292e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_Shoulder
+      position: {x: -.00373010454, y: 6.32219829e-20, z: -9.71445151e-19}
+      rotation: {x: -3.24055033e-10, y: .0689605027, z: -3.93795574e-09, w: .99761939}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_Arm
+      position: {x: -.00487879477, y: 6.77068786e-20, z: -1.02948417e-18}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_hand
+      position: {x: -.00424044766, y: 1.47911416e-33, z: 6.661338e-18}
+      rotation: {x: .707106829, y: -0, z: -0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface2
+      position: {x: .00389776379, y: -8.47482468e-19, z: -.00562696811}
+      rotation: {x: .707106829, y: 7.82650701e-17, z: -1.57248821e-16, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: neck
+      position: {x: .000452959677, y: -2.67901725e-19, z: .0026518025}
+      rotation: {x: -.646732807, y: 3.96009608e-17, z: .762716651, w: 4.67029251e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: head
+      position: {x: -.00259898417, y: 3.43107894e-21, z: -2.2046667e-18}
+      rotation: {x: -.5, y: .5, z: .5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pCube1
+      position: {x: 8.66501941e-05, y: -.000128779764, z: -.00023194711}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_Shoulder
+      position: {x: .00354075059, y: 5.21163109e-20, z: -.00114264328}
+      rotation: {x: -4.59428229e-09, y: -.995472372, z: 3.78064247e-10, w: .0950513482}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: polySurface4
+      position: {x: .00334830629, y: -8.49084665e-19, z: .00568828732}
+      rotation: {x: -3.14018513e-16, y: .707106829, z: -.707106829, w: -4.00614132e-16}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_Arm
+      position: {x: -.0048787999, y: -6.77069497e-20, z: 1.40796263e-18}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_hand
+      position: {x: -.00424049981, y: -5.19311433e-19, z: 4.440892e-18}
+      rotation: {x: 8.65956127e-17, y: .707106829, z: .707106829, w: 0}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  additionalBone: 0
+  userData: 

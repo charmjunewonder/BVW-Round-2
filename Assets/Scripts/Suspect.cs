@@ -55,12 +55,16 @@ public class Suspect : Person {
 		switch (randomActionState)
 		{
 		case ActionState.Walk:
+			GetComponent<Animator>().SetBool("startWalk",true);
+
 			moveTo(mapRepresentation.getRandomPlace());
 			break;
 		case ActionState.Wander:
 			StartCoroutine ("wander");
 			break;
 		case ActionState.Idle:
+			GetComponent<Animator>().SetBool("startWalk",false);
+
 			StartCoroutine ("idle");
 			break;
 		default:

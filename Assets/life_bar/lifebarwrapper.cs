@@ -18,7 +18,7 @@ public class lifebarwrapper : MonoBehaviour {
 		transform.localPosition = new Vector3 (0, 0.0f, 0);
 		transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.back,
 		                 Camera.main.transform.rotation * Vector3.up);
-		transform.localPosition = new Vector3 (0, 0.06f, 0);
+		transform.localPosition = new Vector3 (0, 0.03f, 0);
 	}
 
 	public void reset()

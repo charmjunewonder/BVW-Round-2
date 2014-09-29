@@ -82,13 +82,20 @@ public class GameController : MonoBehaviour {
 				} else{
 					girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOn ();
 
+					//for(int a=0;a<girls.Length;a++)
+					//	if(a!=sortedList[0])
+					//		girls[a].transform.GetChild(1).GetComponentInChildren<MeshRenderer>().enabled = false;
+
 					audio.clip = audioClips[1];
 					audio.Play();
+					girls[sortedList[0]].GetComponentInChildren<TextMesh>().text = "5";
 					yield return new WaitForSeconds(3.0f);
 					
 					for(int m = 0; m < 4; ++m){
 						audio.clip = audioClips[m+2];
 						audio.Play();	
+
+						girls[sortedList[0]].GetComponentInChildren<TextMesh>().text = (4-m).ToString();
 
 						Debug.Log("Life: " + girls[sortedList[0]].GetComponent<Suspect>().getLife());
 						if(girls[sortedList[0]].GetComponent<Suspect>().isLifeBarFull()){
@@ -105,6 +112,8 @@ public class GameController : MonoBehaviour {
 
 					if(focusCount < 4){
 						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOff ();
+						//for(int a=0;a<girls.Length;a++)
+						//	girls[a].transform.GetChild(1).GetComponentInChildren<MeshRenderer>().enabled = true;
 
 						continue;
 					}
@@ -126,9 +135,11 @@ public class GameController : MonoBehaviour {
 						girls[sortedList[0]].SetActiveRecursively(false);
 
 						audioController.turnOffSound();
+						setVisible(window,false);
 						storyPlane.SetActive(true);
 						storyPlane.GetComponent<BEStoryScript>().playMovie();
 						yield return new WaitForSeconds(13.0f);
+						setVisible(window,true);
 						audioController.turnOnSound();
 						storyPlane.GetComponent<BEStoryScript>().stopMovie();
 						storyPlane.SetActive(false);
@@ -396,4 +407,17 @@ public class GameController : MonoBehaviour {
 				}
 				;
 		}*/
+
+	void setVisible(GameObject g, bool visible)
+	{
+		MeshRenderer m = g.GetComponent<MeshRenderer> ();
+		if(m != null) m.enabled = visible;
+		
+		MeshRenderer[] mchild = g.GetComponentsInChildren<MeshRenderer> ();
+		if (mchild != null)
+			for (int i=0; i<mchild.Length; i++)
+				mchild [i].enabled = visible;
+		
+		
+	}
 }

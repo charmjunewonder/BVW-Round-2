@@ -26,6 +26,25 @@ public class GameController : MonoBehaviour {
 		//StartCoroutine ("checkIfSuspendFinishedMoving");
 		StartCoroutine (checkIfAllSuspendsFinishedMoving ());
 		StartCoroutine (checkIfLifeBarIsFull ());
+		//StartCoroutine (inGameVoice ());
+	}
+
+	IEnumerator inGameVoice(){
+		yield return new WaitForSeconds (15.0f);
+
+		while(true){
+			if(audio.isPlaying){
+				yield return new WaitForSeconds (1f);
+				continue;
+			}
+			audio.clip = audioClips[8];
+			audio.Play();
+			yield return new WaitForSeconds (1.5f);
+			audio.clip = audioClips[9];
+			audio.Play();
+
+			yield return new WaitForSeconds (10.0f);
+		}
 	}
 
 	// Update is called once per frame

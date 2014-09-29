@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour {
 	public locationScript locbox;
 	public AudioClip[] audioClips;
 	public GameObject passenger;
+	public AudioController audioController;
+	public GameObject storyPlane;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
@@ -123,6 +125,13 @@ public class GameController : MonoBehaviour {
 						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOff ();
 						girls[sortedList[0]].SetActiveRecursively(false);
 
+						audioController.turnOffSound();
+						storyPlane.SetActive(true);
+						storyPlane.GetComponent<BEStoryScript>().playMovie();
+						yield return new WaitForSeconds(13.0f);
+						audioController.turnOnSound();
+						storyPlane.GetComponent<BEStoryScript>().stopMovie();
+						storyPlane.SetActive(false);
 						//Application.LoadLevel("BadEnding");
 						//break;
 					}
@@ -310,7 +319,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator startGame(){
 
 		Vector2[] offsets = {new Vector2(-2, 1), new Vector2(-3, 5), new Vector2(2, 1), 
-			new Vector2(-1, 0), new Vector2(3, 5)};
+			new Vector2(0, -1), new Vector2(3, 5)};
 		List<int> randomNumbers = new List<int>();
 		for(int i = 0; i < 5; ++i){
 			randomNumbers.Add (i);

@@ -122,6 +122,7 @@ public class GameController : MonoBehaviour {
 							focusCount++;
 						} else{
 							Debug.Log("i change my mind");
+							girls[sortedList[0]].GetComponentInChildren<TextMesh>().text = "";
 							audio.clip = audioClips[7];
 							audio.Play();	
 							break;

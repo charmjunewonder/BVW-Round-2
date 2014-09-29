@@ -38,6 +38,7 @@ public class Suspect : Person {
 	}
 
 	public void moveTo(Grid destination){
+		GetComponent<Animator> ().SetBool ("startWalk", true);
 		mapRepresentation.findShortestPath (this, destination);
 		StartCoroutine ("move");
 	}
@@ -55,16 +56,12 @@ public class Suspect : Person {
 		switch (randomActionState)
 		{
 		case ActionState.Walk:
-			GetComponent<Animator>().SetBool("startWalk",true);
-
 			moveTo(mapRepresentation.getRandomPlace());
 			break;
 		case ActionState.Wander:
 			StartCoroutine ("wander");
 			break;
 		case ActionState.Idle:
-			GetComponent<Animator>().SetBool("startWalk",false);
-
 			StartCoroutine ("idle");
 			break;
 		default:
@@ -104,6 +101,7 @@ public class Suspect : Person {
 			locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination]);
 		}
 		if(++nextDestination < destinations.Length){
+			GetComponent<Animator> ().SetBool ("startWalk", false);
 			yield return new WaitForSeconds(Random.Range(4.0f, 6.0f));
 
 

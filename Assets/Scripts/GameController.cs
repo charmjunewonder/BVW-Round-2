@@ -18,10 +18,11 @@ public class GameController : MonoBehaviour {
 	public GameObject passenger;
 	public AudioController audioController;
 	public GameObject storyPlane;
+	int failures;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
-
+		failures = 0;
 		StartCoroutine ("startGame");
 		//StartCoroutine ("checkIfSuspendFinishedMoving");
 		StartCoroutine (checkIfAllSuspendsFinishedMoving ());
@@ -137,6 +138,10 @@ public class GameController : MonoBehaviour {
 
 						continue;
 					}
+
+					girls[sortedList[0]].GetComponentInChildren<TextMesh>().text = "<color=#ff5555><b>SLAP</b></color>";
+					yield return new WaitForSeconds(1.0f);
+					girls[sortedList[0]].GetComponentInChildren<TextMesh>().text = "";
 					if(girls[sortedList[0]].GetComponent<Suspect>().isCheating){
 						Debug.Log ("WIN");
 						audio.clip = audioClips[6];
@@ -154,6 +159,7 @@ public class GameController : MonoBehaviour {
 						girls[sortedList[0]].GetComponent<HighlightableObject> ().FlashingOff ();
 						girls[sortedList[0]].SetActiveRecursively(false);
 
+						failures++;
 						audioController.turnOffSound();
 						setVisible(window,false);
 						storyPlane.SetActive(true);
@@ -163,9 +169,12 @@ public class GameController : MonoBehaviour {
 						audioController.turnOnSound();
 						storyPlane.GetComponent<BEStoryScript>().stopMovie();
 						storyPlane.SetActive(false);
+
 						//Application.LoadLevel("BadEnding");
 						//break;
 					}
+
+
 				}
 
 				//StartCoroutine ("checkStatusOfGame");

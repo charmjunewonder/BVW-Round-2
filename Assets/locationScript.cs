@@ -6,7 +6,7 @@ public class locationScript : MonoBehaviour {
 	public AudioClip[] clips;
 	public GameObject shinningLogo;
 	public TextMesh clues;
-	string[] locationstrings = {"Christmas Tree","Mapple Store","Wine Store","Hose Tea Cafe", "Whole Foods"};
+	string[] locationstrings = {"Christmas Tree","Mapple Store","Wine Store","Cafe", "Whole Foods", "Church", "Nail Salon"};
 	float xaspect;
 	float hidepos;
 	float showpos;

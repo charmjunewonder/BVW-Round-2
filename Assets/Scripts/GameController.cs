@@ -309,8 +309,8 @@ public class GameController : MonoBehaviour {
 
 	IEnumerator startGame(){
 
-		Vector2[] offsets = {new Vector2(-5, 0), new Vector2(-3, -1), new Vector2(3, 0), 
-			new Vector2(-1, -1), new Vector2(5, -1)};
+		Vector2[] offsets = {new Vector2(-2, 1), new Vector2(-3, 5), new Vector2(2, 1), 
+			new Vector2(-1, 0), new Vector2(3, 5)};
 		List<int> randomNumbers = new List<int>();
 		for(int i = 0; i < 5; ++i){
 			randomNumbers.Add (i);

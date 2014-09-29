@@ -3,7 +3,7 @@ using System.Collections;
 
 public class lifebarwrapper : MonoBehaviour {
 	public lifebarscript lifebar;
-	public GameObject outline;
+	//public GameObject outline;
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +12,7 @@ public class lifebarwrapper : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		outline.renderer.enabled = !isEmpty ();
+		//outline.renderer.enabled = !isEmpty ();
 
 
 		transform.localPosition = new Vector3 (0, 0.0f, 0);

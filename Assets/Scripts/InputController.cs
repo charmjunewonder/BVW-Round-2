@@ -13,7 +13,7 @@ public class InputController : MonoBehaviour {
 	private Texture2D foggytex;
 	private Texture2D initialtex;
 
-	const int GAME_WIPE_RADIUS = 20;
+	const int GAME_WIPE_RADIUS = 30;
 	const int LOADING_WIPE_RADIUS = 20;
 
 	const float HEIGHT_OFFSET = 20;
@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour {
 	const bool USE_RIGHT = true;
 
 	const float NO_MIST_TIME = 1.0f;
-	const float MIST_UP_TIME = 5.0f;
+	const float MIST_UP_TIME = 7.0f;
 
 	int[,] semaphore;
 	int semaphore_index;

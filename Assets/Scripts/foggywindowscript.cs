@@ -44,7 +44,7 @@ public class foggywindowscript : MonoBehaviour {
 			
 			
 			//smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.8f + scene + Color.cyan * 0.1f);
-			smalltex.SetPixel (i, j, (Color.white - scene) * frost * 0.8f + scene);
+			smalltex.SetPixel (i, j, (Color.white - scene) * frost + scene);
 		}
 		//tex.filterMode = FilterMode.Trilinear;
 		

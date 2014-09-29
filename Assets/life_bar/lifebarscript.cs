@@ -4,14 +4,14 @@ using System.Collections;
 public class lifebarscript : MonoBehaviour {
 
 	const float BASE_ALPHA = 0.01f;
-	const float ALPHA_STEP = 0.075f;
+	const float ALPHA_STEP = 0.25f;
 	float alpha;
 	// Use this for initialization
 	void Start () {
 
-		alpha = 1.0f;
-		gameObject.renderer.material.SetFloat ("_Cutoff", alpha);
-		StartCoroutine (delayReset ());
+		//alpha = 1.0f;
+		//gameObject.renderer.material.SetFloat ("_Cutoff", alpha);
+		//StartCoroutine (delayReset ());
 		reset ();
 
 		//RemoveLife ();
@@ -42,7 +42,7 @@ public class lifebarscript : MonoBehaviour {
 
 	public void RemoveLife()
 	{
-		alpha += ALPHA_STEP * 3 * Time.deltaTime;
+		alpha += ALPHA_STEP * Time.deltaTime;
 		alpha = Mathf.Min (alpha, 1.0f);
 		gameObject.renderer.material.SetFloat ("_Cutoff", alpha);
 	}

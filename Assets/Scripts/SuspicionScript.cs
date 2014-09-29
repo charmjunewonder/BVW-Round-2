@@ -18,22 +18,24 @@ public class SuspicionScript : MonoBehaviour {
 	{
 				Texture2D tex = (Texture2D)window.renderer.material.mainTexture;
 		
+		Transform[] t = girls[girl_index].GetComponentsInChildren<Transform>();
+
+		for (int i=0; i<t.Length; i++) {
+						//girl4 is the red girl
+						Vector3 pos = t[i].position;
+						Vector3 p = Camera.main.WorldToScreenPoint (pos);
+						Vector2 screenpos = new Vector2 ();
+						screenpos.x = Screen.width - p.x;
+						screenpos.y = Screen.height - p.y;
+						screenpos.x = Mathf.FloorToInt ((float)screenpos.x * (float)tex.width / (float)Screen.width);
+						screenpos.y = Mathf.FloorToInt ((float)screenpos.y * (float)tex.height / (float)Screen.height);
+						Color col = tex.GetPixel (Mathf.FloorToInt (screenpos.x), Mathf.FloorToInt (screenpos.y));
 		
-				//girl4 is the red girl
-				Vector3 pos = girls [girl_index].transform.position;
-				Vector3 p = Camera.main.WorldToScreenPoint (pos);
-				Vector2 screenpos = new Vector2 ();
-				screenpos.x = Screen.width - p.x;
-				screenpos.y = Screen.height - p.y;
-				screenpos.x = Mathf.FloorToInt ((float)screenpos.x * (float)tex.width / (float)Screen.width);
-				screenpos.y = Mathf.FloorToInt ((float)screenpos.y * (float)tex.height / (float)Screen.height);
-				Color col = tex.GetPixel (Mathf.FloorToInt (screenpos.x), Mathf.FloorToInt (screenpos.y));
-		
-				if (col.a < 0.1f) {
-						//Debug.Log ("WIN");
-						return true;
+						if (col.a < 0.075f) {
+								//Debug.Log ("WIN");
+								return true;
+						}
 				}
-		
 		
 				return false;
 	}

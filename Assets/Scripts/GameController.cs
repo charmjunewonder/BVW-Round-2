@@ -164,7 +164,7 @@ public class GameController : MonoBehaviour {
 						setVisible(window,false);
 						storyPlane.SetActive(true);
 						storyPlane.GetComponent<BEStoryScript>().playMovie();
-						yield return new WaitForSeconds(13.0f);
+						yield return new WaitForSeconds(14.5f);
 						setVisible(window,true);
 						audioController.turnOnSound();
 						storyPlane.GetComponent<BEStoryScript>().stopMovie();

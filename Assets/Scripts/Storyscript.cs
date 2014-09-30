@@ -26,4 +26,5 @@ public class StoryScript : MonoBehaviour {
 		if (!mov.isPlaying)
 			Application.LoadLevel ("GamePlay");
 	}
+
 }

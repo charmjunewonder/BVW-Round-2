@@ -171,11 +171,11 @@ public class MapRepresentation : MonoBehaviour {
 		string outt = "";
 		for (int i=0; i<no_place; i++) {
 			for (int j=0; j<no_place; j++)
-								outt += locationMatrix [i, j] + " ";
+			outt += locationMatrix [i, j] + " ";
 
 			outt += "\n";
-				}
-				
+		}
+		
 		Debug.Log (outt);
 
 		return locationMatrix;

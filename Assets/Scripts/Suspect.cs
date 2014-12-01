@@ -19,6 +19,8 @@ public class Suspect : Person {
 	public GameObject ObstacleGroup;
 	GameObject cubeA;
 
+	public int girlIndex;
+
 	public enum ActionState{
 		Walk,
 		Wander,
@@ -98,7 +100,7 @@ public class Suspect : Person {
 	
 		}
 		if(isCheating){
-			locbox.SendText(mapRepresentation.locationMatrix [4, nextDestination]);
+			locbox.SendText(mapRepresentation.locationMatrix [girlIndex, nextDestination]);
 		}
 		if(++nextDestination < destinations.Length){
 			GetComponent<Animator> ().SetBool ("startWalk", false);

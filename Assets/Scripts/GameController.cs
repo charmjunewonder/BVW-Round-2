@@ -341,14 +341,24 @@ public class GameController : MonoBehaviour {
 	void suspectStartMoving(){
 		int[,] locationMatrix = mapRepresentation.generateRandomPlaceMatrix ();
 
+		//random
+		List<int> randomNum = new List<int>();
+		for (int i = 0; i < girls.Length; i++)
+			randomNum.Add (i);
+		
+		int index, value;
 		for(int i = 0; i < 5; ++i){
 			if(!girls [i].activeSelf)
 				continue;
 			Grid[] routine = new Grid[5];
+			index = Random.Range (0, randomNum.Count);
+			value = randomNum [index];
+			randomNum.RemoveAt (index);
 			for(int j = 0; j < 5; ++j){
-				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[i, j]);
+				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[value, j]);
 			}
 			girls [i].GetComponent<Suspect> ().destinations = routine;
+			girls [i].GetComponent<Suspect> ().girlIndex = value;
 			girls [i].GetComponent<Suspect> ().nextDestination = 0;
 			girls [i].GetComponent<Suspect> ().isFinishedMoving = false;
 			girls [i].GetComponent<Suspect> ().moveInRoutine ();
@@ -364,6 +374,10 @@ public class GameController : MonoBehaviour {
 		for(int i = 0; i < 5; ++i){
 			randomNumbers.Add (i);
 		}
+
+		//set the cheating girl
+		int cheatingGirlIndex = Random.Range(0, girls.Length);
+		girls[cheatingGirlIndex].GetComponent<Suspect> ().isCheating = true;
 		for (int i = 0; i < girls.Length; ++i) {
 			//Vector2 offsets = mapRepresentation.christmasTree.pointOfGrid;
 			int index = Random.Range(0, randomNumbers.Count);
@@ -378,7 +392,6 @@ public class GameController : MonoBehaviour {
 			girls[i].GetComponent<Suspect>().setStartPosition(startPosition);
 			girls[i].GetComponent<Suspect>().lookAtChristmasTree();
 		}
-
 
 		yield return new WaitForSeconds(3.0f);
 		audio.clip = audioClips[0];

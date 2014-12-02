@@ -19,15 +19,15 @@ public class RestartController : MonoBehaviour {
 		widthRatio = Screen.width * 1.0f/ defaultWidth;
 		//restart
 		float width = buttonTexture[restartButtonIndex].width*0.6f*widthRatio, height = buttonTexture[restartButtonIndex].height*0.6f*widthRatio;
-		restartButtonRect = new Rect(Screen.width * 0.5f, Screen.height * 0.5f, width, height);
+		restartButtonRect = new Rect(Screen.width * 0.42f, Screen.height * 0.5f, width, height);
 		//story
 		width = buttonTexture[storyButtonIndex].width*0.6f*widthRatio;
 		height = buttonTexture[storyButtonIndex].height*0.6f*widthRatio;
-		storyButtonRect = new Rect(Screen.width * 0.5f, Screen.height * 0.6f, width, height);
+		storyButtonRect = new Rect(Screen.width * 0.44f, Screen.height * 0.6f, width, height);
 		//quit
 		width = buttonTexture[quitButtonIndex].width*0.6f*widthRatio;
 		height = buttonTexture[quitButtonIndex].height*0.6f*widthRatio;
-		quitButtonRect = new Rect(Screen.width * 0.5f, Screen.height * 0.7f, width, height);
+		quitButtonRect = new Rect(Screen.width * 0.45f, Screen.height * 0.7f, width, height);
 
 		backgroundIndex = PlayerPrefs.GetInt("SlayCount", 0);
 	}

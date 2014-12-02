@@ -144,6 +144,7 @@ public class GameController : MonoBehaviour {
 					girls[sortedList[0]].GetComponentInChildren<TextMesh>().text = "";
 					if(girls[sortedList[0]].GetComponent<Suspect>().isCheating){
 						Debug.Log ("WIN");
+						PlayerPrefs.SetInt("SlayCount", failures);
 						audio.clip = audioClips[6];
 						audio.Play();	
 						Application.LoadLevel("HappyEnding");

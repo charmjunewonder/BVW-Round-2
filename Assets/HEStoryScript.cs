@@ -10,6 +10,15 @@ public class HEStoryScript : MonoBehaviour {
 		resize_window_plane ();
 		mov = (MovieTexture)renderer.material.mainTexture;
 		mov.Play ();
+		StartCoroutine(checkMovieEnds());
+	}
+
+	IEnumerator checkMovieEnds(){
+		yield return new WaitForSeconds(1f);
+		while(!mov.isPlaying){
+			Application.LoadLevel("Restart");
+			yield return new WaitForSeconds(0.3f);
+		}
 	}
 	
 	void resize_window_plane()

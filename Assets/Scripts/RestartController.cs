@@ -15,6 +15,7 @@ public class RestartController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Screen.showCursor = true;
 		int defaultWidth = 1600;
 		widthRatio = Screen.width * 1.0f/ defaultWidth;
 		//restart
@@ -61,15 +62,15 @@ public class RestartController : MonoBehaviour {
 		if(Input.GetButtonDown("Fire1")) {
 			if(clickRestart){
 				Debug.Log("Restart");
-				//Application.LoadLevel("GamePlay");
+				Application.LoadLevel("GamePlay");
 			} else if(clickStory){
 				Debug.Log("Story");
-				//Application.LoadLevel("scene_game");
+				Application.LoadLevel("scene_game");
 				//Application.LoadLevel("Credit");
 			}
 			else if(clickQuit){
 				Debug.Log("Quit");
-				//Application.Quit();
+				Application.Quit();
 			}				
 		}
 	}

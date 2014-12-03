@@ -20,11 +20,12 @@ public class StoryScript : MonoBehaviour {
 		transform.localScale = new Vector3 (width * 0.1f, 1, height * 0.1f);
 	}
 
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (!mov.isPlaying)
 			Application.LoadLevel ("GamePlay");
+
 	}
 
 }

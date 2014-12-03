@@ -358,9 +358,8 @@ public class GameController : MonoBehaviour {
 			value = randomNum [index];
 			randomNum.RemoveAt (index);
 			if(value == cheatingGirlIndex)
-				value = 0;
-			else
-				value++;
+				value = 6;
+
 			for(int j = 0; j < 5; ++j){
 				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[value, j]);
 			}

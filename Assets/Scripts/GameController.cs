@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 	public AudioController audioController;
 	public GameObject storyPlane;
 	int failures;
+	int cheatingGirlIndex = -1;
 	// Use this for initialization
 	void Start () {
 		mapRepresentation = map.GetComponent<MapRepresentation> ();
@@ -356,6 +357,10 @@ public class GameController : MonoBehaviour {
 			index = Random.Range (0, randomNum.Count);
 			value = randomNum [index];
 			randomNum.RemoveAt (index);
+			if(value == cheatingGirlIndex)
+				value = 0;
+			else
+				value++;
 			for(int j = 0; j < 5; ++j){
 				routine[j] = mapRepresentation.getInterestPlace(locationMatrix[value, j]);
 			}
@@ -378,7 +383,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		//set the cheating girl
-		int cheatingGirlIndex = Random.Range(0, girls.Length);
+		cheatingGirlIndex = Random.Range(0, girls.Length);
 		girls[cheatingGirlIndex].GetComponent<Suspect> ().isCheating = true;
 		for (int i = 0; i < girls.Length; ++i) {
 			//Vector2 offsets = mapRepresentation.christmasTree.pointOfGrid;

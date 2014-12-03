@@ -31,6 +31,8 @@ public class RestartController : MonoBehaviour {
 		quitButtonRect = new Rect(Screen.width * 0.45f, Screen.height * 0.7f, width, height);
 
 		backgroundIndex = PlayerPrefs.GetInt("SlayCount", 0);
+		audio.volume = 1.0f;
+		StartCoroutine (autoRestart ());
 	}
 	
 	// Update is called once per frame
@@ -85,4 +87,13 @@ public class RestartController : MonoBehaviour {
 		GUI.DrawTexture(quitButtonRect, buttonTexture[quitButtonIndex]);
 
     }
+
+	IEnumerator autoRestart(){
+		yield return new WaitForSeconds(11);
+		for (int i = 0; i < 10; i++) {
+			audio.volume -= 0.1f;
+			yield return new WaitForSeconds(0.1f);
+		}
+		Application.LoadLevel("scene_game");
+	}
 }
